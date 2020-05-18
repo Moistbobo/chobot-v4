@@ -1,6 +1,6 @@
 interface ExtraField{
-    name?:string,
-    value?:string,
+    name:string,
+    value:string,
     inline?:boolean
 }
 
@@ -12,5 +12,5 @@ export interface EmbedArgs {
     url?: string;
     image?: string;
     thumbnail?: string;
-    extraFields?: Array<ExtraField>
+    extraFields?: Array<ExtraField | null>
 }

@@ -5,17 +5,21 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsc -b && cp ./.env ./dist/ && nodemon dist/index.js",
     "build-and-run": "tsc --build && node dist/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@types/cheerio": "^0.22.18",
+    "@types/mongoose": "^5.7.20",
     "@types/node-fetch": "^2.5.7",
     "cheerio": "^1.0.0-rc.3",
     "discord.js": "^11.5.1",
     "dotenv": "^8.2.0",
     "fast-xml-parser": "^3.16.0",
+    "mongodb": "^3.5.7",
+    "mongoose": "^5.9.14",
     "node-fetch": "^2.6.0",
     "nodemon": "^2.0.1"
   },

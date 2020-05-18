@@ -10,6 +10,10 @@ const runBot = (token: string|undefined) => {
     return;
   }
 
+  const onError = (error: Error) => {
+    console.log('error has occurred');
+  };
+
   const onMessage = (msg: Discord.Message) => {
     const { commandPrefix } = AppConfig;
 
@@ -34,6 +38,12 @@ const runBot = (token: string|undefined) => {
     };
 
     if (commandToRun) {
+      const { author, guild } = msg;
+      console.log(
+        // eslint-disable-next-line max-len
+        `\n======[COMMAND EXECUTED]\n[${author.username}] has executed command [${commandToRun.name}] in [${guild.name}] id [${guild.id}]\n`,
+      );
+
       commandToRun.action(commandArgs);
     }
   };
@@ -41,6 +51,7 @@ const runBot = (token: string|undefined) => {
   const client = new Discord.Client();
 
   client.on('message', onMessage);
+  client.on('error', onError);
 
   client.login(token)
     .then(() => {

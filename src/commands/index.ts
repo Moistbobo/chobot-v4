@@ -1,7 +1,7 @@
-import HelloWorld from './HelloWorld';
-import BDO from './BDO';
+import BDO from './BDO/BDOCommands';
+import MiscCommands from './Misc/MiscCommands';
 
 export default [
-  HelloWorld,
   ...BDO,
+  ...MiscCommands,
 ];
