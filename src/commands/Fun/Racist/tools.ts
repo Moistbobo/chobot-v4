@@ -15,9 +15,12 @@ const mapRacistLevel = (value: number) => {
 };
 
 const images = [
-  ['https://i.imgur.com/i6L9mjN.jpg', 'https://i.imgur.com/ZzBdwlZ.png', 'https://i.imgur.com/QV12TlA.png', 'https://i.imgur.com/EzEHWkK.png'], // 0 - 250
-  ['https://i.imgur.com/G9gcGJO.jpg', 'https://i.imgur.com/6KFCrsC.png'], // 251 - 500,
-  ['https://i.imgur.com/gVRREt1.jpg', 'https://i.imgur.com/o0t9JHX.jpg'], // 501 - 750
+  ['https://i.imgur.com/i6L9mjN.jpg',
+    'https://i.imgur.com/ZzBdwlZ.png',
+    'https://i.imgur.com/QV12TlA.png',
+    'https://i.imgur.com/EzEHWkK.png'], // 0 - 250
+  [''], // 251 - 500,
+  [''], // 501 - 750
   ['https://i.imgur.com/85gMRiT.jpg', 'https://i.imgur.com/WVVKqif.jpg'], // 751 - 950
   ['https://i.imgur.com/BN9BcV0.png'], // 951 - 1000
 ];
