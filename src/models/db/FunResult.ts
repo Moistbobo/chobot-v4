@@ -2,7 +2,7 @@ import { Document, Schema, model } from 'mongoose';
 
 
 export interface IFunObject extends Document {
-    lastUpdate: number,
+    lastUpdate: string,
     value: number
 }
 
@@ -15,7 +15,7 @@ export interface IFunResult extends Document {
 
 export const FunObjectSchema = new Schema({
   lastUpdate: {
-    type: Number,
+    type: String,
     default: 0,
     required: true,
   },
@@ -23,7 +23,7 @@ export const FunObjectSchema = new Schema({
 });
 
 const defaultFunObject = {
-  lastUpdate: 0,
+  lastUpdate: '1970-01-01T00:00:00Z',
 };
 
 export const FunResultSchema = new Schema({

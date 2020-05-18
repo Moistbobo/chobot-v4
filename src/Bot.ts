@@ -3,6 +3,7 @@ import Commands from './commands';
 import { CommandArgs } from './models/CommandArgs';
 import { Command } from './models/Command';
 import AppConfig from './AppConfig';
+import Db from './services/db/Db';
 
 const runBot = (token: string|undefined) => {
   if (!token) {
@@ -53,13 +54,19 @@ const runBot = (token: string|undefined) => {
   client.on('message', onMessage);
   client.on('error', onError);
 
+
   client.login(token)
     .then(() => {
       console.log('Bot logged in');
       console.log('Commands: \n', Commands.map((command) => command.name));
+
+      return Db.connect();
+    })
+    .then(() => {
+      console.log('Db connected');
     })
     .catch((err: Error) => {
-      console.log('Failed to login\n', err.message);
+      console.log('Failed initializing bot\n', err.message);
     });
 };
 

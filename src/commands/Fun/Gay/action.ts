@@ -1,49 +1,48 @@
-// import CommandArgs from '../../classes/CommandArgs';
-// import { FindOrCreateNewGayResult } from '../../models/gayResult';
-// import RPGTools from '../../tools/rpg/RPGTools';
-// import replace from '../../tools/replace';
-// import { FindOrCreateNewFunResult } from '../../models/funResult';
-//
-// const sendGayResult = (args: CommandArgs, mentionedUser: any, gayResult: any) => {
-//   const contents = replace(args.strings.gay.gayResultTarget,
-//     [mentionedUser,
-//       gayResult.value]);
-//
-//   return args.sendOKEmbed({
-//     contents,
-//     thumbnail: mentionedUser.avatarURL(),
-//   });
-// };
-//
-// const action = (args: CommandArgs) => {
-//   let targetUser = null;
-//   const mentionedUser = args.bot.getFirstMentionedUserID(args.message);
-//
-//   if (!mentionedUser) {
-//     targetUser = args.message.author;
-//   } else {
-//     targetUser = mentionedUser;
-//   }
-//
-//   console.log(targetUser);
-//   FindOrCreateNewFunResult(targetUser.id)
-//     .then((res) => {
-//       const funRes = res.gay;
-//       // Display old result if the cooldown threshold has not been met
-//       if ((args.timeNow - funRes.lastUpdate) < 86400) {
-//         sendGayResult(args, targetUser, funRes);
-//         throw new Error('Gay test cooldown not met');
-//       }
-//
-//       funRes.value = Math.floor(RPGTools.GetRandomFloatRange(-50, 1000));
-//
-//       funRes.lastUpdate = args.timeNow;
-//       res.fun = funRes;
-//       return Promise.all([res.save(), sendGayResult(args, targetUser, funRes)]);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// };
-//
-// export default action;
+import moment from 'moment';
+import { CommandArgs } from '../../../models/CommandArgs';
+import FindMemberInServer from '../../../helpers/FindMemberInServer';
+import FunResult from '../../../models/db/FunResult';
+import Embed from '../../../helpers/Embed';
+
+const action = async (args: CommandArgs) => {
+  const { msg, msg: { channel, author } } = args;
+
+  let targetUser;
+
+  const mentionedUser = FindMemberInServer(msg);
+  if (!mentionedUser) {
+    targetUser = author;
+  } else {
+    targetUser = mentionedUser.user;
+  }
+
+  const funResult = await FunResult.findOne({ userID: targetUser.id }) || new FunResult();
+
+  const { gay: { lastUpdate } } = funResult;
+
+  if (moment(moment()).diff(lastUpdate, 'days') >= 1) {
+    const gayValue = Math.floor(Math.random() * 1000);
+
+    funResult.gay.lastUpdate = moment().toISOString();
+    funResult.gay.value = gayValue;
+    funResult.userID = targetUser.id;
+
+    const embed = Embed.createEmbed({
+      contents: `${targetUser} is **${gayValue}%** gay.`,
+      thumbnail: targetUser.avatarURL,
+    });
+
+    await funResult.save();
+    await channel.send(embed);
+  } else {
+    const embed = Embed.createEmbed({
+      contents: `${targetUser} is **${funResult.gay.value}%** gay.`,
+      thumbnail: targetUser.avatarURL,
+      footer: `Next check: ${moment(funResult.gay.lastUpdate).add(1, 'day').fromNow()}`,
+    });
+
+    await channel.send(embed);
+  }
+};
+
+export default action;
