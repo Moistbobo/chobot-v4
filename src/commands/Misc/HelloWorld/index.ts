@@ -1,5 +1,5 @@
 import action from './action';
-import { Command } from '../../models/Command';
+import { Command } from '../../../models/Command';
 
 const HelloWorld: Command = {
   name: 'Hello world',

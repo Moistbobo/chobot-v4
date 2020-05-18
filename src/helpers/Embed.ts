@@ -20,14 +20,16 @@ const createEmbed = (args: EmbedArgs, error = false) => {
 
   if (extraFields) {
     extraFields.forEach((ef) => {
-      if (ef.name === 'blank') {
-        embed.addBlankField(ef.inline);
-      } else {
-        embed.addField(
-          ef.name || '',
-          ef.value || '',
-          ef.inline || false,
-        );
+      if (ef !== null) {
+        if (ef.name === 'blank') {
+          embed.addBlankField(ef.inline);
+        } else {
+          embed.addField(
+            ef.name || '',
+            ef.value || '',
+            ef.inline || false,
+          );
+        }
       }
     });
   }
