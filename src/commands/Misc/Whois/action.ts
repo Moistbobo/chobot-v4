@@ -1,4 +1,5 @@
-import { Guild, GuildMember } from 'discord.js';
+import { GuildMember } from 'discord.js';
+import moment from 'moment';
 import { CommandArgs } from '../../../models/CommandArgs';
 import FindMemberInServer from '../../../helpers/FindMemberInServer';
 import Embed from '../../../helpers/Embed';
@@ -49,8 +50,11 @@ const action = (args: CommandArgs) => {
         name: 'Roles',
         value: roles.array().join(', '),
       },
+      {
+        name: 'Member since',
+        value: `${moment(joinedAt).fromNow()}`,
+      },
     ],
-    footer: `Joined at ${joinedAt}`,
   });
 
   return channel.send(embed);

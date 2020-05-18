@@ -15,7 +15,7 @@ const FindMemberInServer = (msg: Discord.Message): Discord.GuildMember | null =>
     ) => member.user.username.toLowerCase() === splitMessage[1].toLowerCase() || member.nickname === splitMessage[1]);
   }
 
-  console.log('[ID Search:]', mentionedUser);
+  // console.log('[ID Search:]', mentionedUser);
   return mentionedUser;
 };
 
