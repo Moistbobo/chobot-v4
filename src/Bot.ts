@@ -5,6 +5,7 @@ import { Command } from './models/Command';
 import AppConfig from './AppConfig';
 import Db from './services/db/Db';
 import Embed from './helpers/Embed';
+import { BotVoiceConnection } from './models/BotVoiceConnection';
 
 const runBot = (token: string|undefined) => {
   if (!token) {
@@ -12,17 +13,13 @@ const runBot = (token: string|undefined) => {
     return;
   }
 
-  const voiceConnections: {[index:string]:{
-      session: Discord.VoiceConnection,
-      channelId: Discord.VoiceChannel,
-      lastActivity: string,
-    }} = {};
+  const voiceConnections: {[index:string]: BotVoiceConnection} = {};
 
   const onError = (error: Error) => {
     console.log('error has occurred');
   };
 
-  const onMessage = (msg: Discord.Message) => {
+  const onMessage = async (msg: Discord.Message) => {
     const { commandPrefix } = AppConfig;
 
     if (!commandPrefix) {
@@ -50,6 +47,18 @@ const runBot = (token: string|undefined) => {
       const {
         channel, author, guild, member, member: { voiceChannel, permissions },
       } = msg;
+
+      if (commandToRun.check) {
+        const checkResult:{pass:boolean, reason?:string} = await commandToRun.check(commandArgs);
+
+        if (!checkResult.pass) {
+          return console.log(
+            // eslint-disable-next-line max-len
+            `\nXXXXXX[COMMAND FAILED]\n[${author.username}] has failed executing command [${commandToRun.name}] in [${guild.name}] id [${guild.id}]`,
+            `\n${checkResult.reason}` ? `Reason: ${checkResult.reason}` : '',
+          );
+        }
+      }
 
       if (commandToRun.requiresVoiceChannel && !voiceChannel) {
         const embed = Embed.createEmbed({

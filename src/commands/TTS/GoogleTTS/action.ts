@@ -1,6 +1,8 @@
 import moment from 'moment';
 import Tools from './tools';
+import TTSTools from '../TTSTools';
 import { CommandArgs } from '../../../models/CommandArgs';
+import Embed from '../../../helpers/Embed';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -13,8 +15,6 @@ const action = async (args: CommandArgs) => {
     },
     voiceConnections,
   } = args;
-
-  if (content.split.length < 2 || !voiceChannel) return;
 
   const lang = Tools.getLanguage(content);
   const gender = Tools.getGender(content);

@@ -1,8 +1,10 @@
 import { Command } from '../../../models/Command';
 import action from './action';
+import check from './check';
 
 const LeaveVoice: Command = {
   action,
+  check,
   name: 'Leave voice',
   description: '',
   triggers: ['disconnect'],
