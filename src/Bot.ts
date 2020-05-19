@@ -5,6 +5,7 @@ import { Command } from './models/Command';
 import AppConfig from './AppConfig';
 import Db from './services/db/Db';
 import Embed from './helpers/Embed';
+import { BotVoiceConnection } from './models/BotVoiceConnection';
 
 const runBot = (token: string|undefined) => {
   if (!token) {
@@ -12,11 +13,7 @@ const runBot = (token: string|undefined) => {
     return;
   }
 
-  const voiceConnections: {[index:string]:{
-      session: Discord.VoiceConnection,
-      channelId: Discord.VoiceChannel,
-      lastActivity: string,
-    }} = {};
+  const voiceConnections: {[index:string]: BotVoiceConnection} = {};
 
   const onError = (error: Error) => {
     console.log('error has occurred');
