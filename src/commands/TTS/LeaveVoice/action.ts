@@ -11,14 +11,6 @@ const action = (args: CommandArgs) => {
     },
   } = args;
 
-  if (!voiceConnections[serverId]) {
-    const embed = Embed.createEmbed({
-      contents: 'You need to be in the same voice channel.',
-    }, true);
-
-    return channel.send(embed);
-  }
-
   if (voiceChannelId === voiceConnections[serverId].channel.id) {
     voiceConnections[serverId].session.disconnect();
     delete voiceConnections[serverId];

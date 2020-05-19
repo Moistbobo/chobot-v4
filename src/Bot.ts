@@ -19,7 +19,7 @@ const runBot = (token: string|undefined) => {
     console.log('error has occurred');
   };
 
-  const onMessage = (msg: Discord.Message) => {
+  const onMessage = async (msg: Discord.Message) => {
     const { commandPrefix } = AppConfig;
 
     if (!commandPrefix) {
@@ -47,6 +47,18 @@ const runBot = (token: string|undefined) => {
       const {
         channel, author, guild, member, member: { voiceChannel, permissions },
       } = msg;
+
+      if (commandToRun.check) {
+        const checkResult:{pass:boolean, reason?:string} = await commandToRun.check(commandArgs);
+
+        if (!checkResult.pass) {
+          return console.log(
+            // eslint-disable-next-line max-len
+            `\nXXXXXX[COMMAND FAILED]\n[${author.username}] has failed executing command [${commandToRun.name}] in [${guild.name}] id [${guild.id}]`,
+            `\n${checkResult.reason}` ? `Reason: ${checkResult.reason}` : '',
+          );
+        }
+      }
 
       if (commandToRun.requiresVoiceChannel && !voiceChannel) {
         const embed = Embed.createEmbed({

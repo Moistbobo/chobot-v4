@@ -37,6 +37,9 @@ const createEmbed = (args: EmbedArgs, error = false) => {
   return embed;
 };
 
+const createMessage = (contents: string, isError?: boolean) => createEmbed({ contents }, isError);
+
 export default {
   createEmbed,
+  createMessage,
 };
