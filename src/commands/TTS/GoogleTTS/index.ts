@@ -6,6 +6,8 @@ const GoogleTTS: Command = {
   name: 'GoogleTTS',
   triggers: ['gtts', 'googletts', 'gttsf', 'googlettsf'],
   description: '',
+  requiresVoiceChannel: true,
+  requiredPermissions: ['SEND_TTS_MESSAGES'],
 };
 
 export default GoogleTTS;

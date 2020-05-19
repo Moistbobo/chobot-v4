@@ -19,8 +19,6 @@ const action = async (args: CommandArgs) => {
     ? content.split(' ').slice(2).join(' ')
     : content.split(' ').slice(1).join(' ');
 
-  console.log(lang, gender, textToSpeak);
-
   const ttsAudioBinary = await Tools.generateTTS(textToSpeak, lang, gender);
   await Tools.writeTTSBinaryToWAV(ttsAudioBinary, serverId);
 
