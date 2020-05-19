@@ -11,6 +11,8 @@ const runBot = (token: string|undefined) => {
     return;
   }
 
+  const voiceConnections: {[index:string]: Discord.VoiceConnection} = {};
+
   const onError = (error: Error) => {
     console.log('error has occurred');
   };
@@ -36,6 +38,7 @@ const runBot = (token: string|undefined) => {
 
     const commandArgs: CommandArgs = {
       msg,
+      voiceConnections,
     };
 
     if (commandToRun) {
