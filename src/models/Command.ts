@@ -1,3 +1,4 @@
+import Discord from 'discord.js';
 import { CommandArgs } from './CommandArgs';
 
 export interface Command {
@@ -5,4 +6,7 @@ export interface Command {
     triggers: string[];
     action: (args:CommandArgs) => any| void;
     description?: string;
+
+    requiredPermissions?: Discord.PermissionString[],
+    requiresVoiceChannel?: boolean,
 }

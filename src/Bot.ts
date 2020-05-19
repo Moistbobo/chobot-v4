@@ -4,12 +4,19 @@ import { CommandArgs } from './models/CommandArgs';
 import { Command } from './models/Command';
 import AppConfig from './AppConfig';
 import Db from './services/db/Db';
+import Embed from './helpers/Embed';
 
 const runBot = (token: string|undefined) => {
   if (!token) {
     console.log('Bot Token is undefined');
     return;
   }
+
+  const voiceConnections: {[index:string]:{
+      session: Discord.VoiceConnection,
+      channelId: Discord.VoiceChannel,
+      lastActivity: string,
+    }} = {};
 
   const onError = (error: Error) => {
     console.log('error has occurred');
@@ -36,10 +43,33 @@ const runBot = (token: string|undefined) => {
 
     const commandArgs: CommandArgs = {
       msg,
+      voiceConnections,
     };
 
     if (commandToRun) {
-      const { author, guild } = msg;
+      const {
+        channel, author, guild, member, member: { voiceChannel, permissions },
+      } = msg;
+
+      if (commandToRun.requiresVoiceChannel && !voiceChannel) {
+        const embed = Embed.createEmbed({
+          contents: 'You need to be in a voice channel to use this command.',
+        }, true);
+
+        return channel.send(embed);
+      }
+
+      if (commandToRun.requiredPermissions && !permissions.has(commandToRun.requiredPermissions)) {
+        const missingPermissions = commandToRun.requiredPermissions.filter((x) => !permissions.toArray().includes(x));
+
+        const embed = Embed.createEmbed({
+          contents: `You do not have the required permissions to use this command.
+          \nMissing:\n\n${missingPermissions.join(', ')}`,
+        }, true);
+
+        return channel.send(embed);
+      }
+
       console.log(
         // eslint-disable-next-line max-len
         `\n======[COMMAND EXECUTED]\n[${author.username}] has executed command [${commandToRun.name}] in [${guild.name}] id [${guild.id}]\n`,
@@ -53,7 +83,6 @@ const runBot = (token: string|undefined) => {
 
   client.on('message', onMessage);
   client.on('error', onError);
-
 
   client.login(token)
     .then(() => {
