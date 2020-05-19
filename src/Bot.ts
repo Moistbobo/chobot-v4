@@ -14,6 +14,7 @@ const runBot = (token: string|undefined) => {
 
   const voiceConnections: {[index:string]:{
       session: Discord.VoiceConnection,
+      channelId: Discord.VoiceChannel,
       lastActivity: string,
     }} = {};
 

@@ -39,6 +39,7 @@ const action = async (args: CommandArgs) => {
 
     voiceConnections[serverId] = {
       session: await voiceChannel.join(),
+      channel: voiceChannel,
       lastActivity: moment().toISOString(),
     };
     voiceConnections[serverId].session.playFile(`./gtts/${serverId}.wav`);

@@ -6,6 +6,7 @@ export interface CommandArgs {
     voiceConnections: {
         [index:string]:{
             session: Discord.VoiceConnection,
+            channel: Discord.VoiceChannel,
             lastActivity: string,
         }
     },
