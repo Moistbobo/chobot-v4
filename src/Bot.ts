@@ -12,7 +12,10 @@ const runBot = (token: string|undefined) => {
     return;
   }
 
-  const voiceConnections: {[index:string]: Discord.VoiceConnection} = {};
+  const voiceConnections: {[index:string]:{
+      session: Discord.VoiceConnection,
+      lastActivity: string,
+    }} = {};
 
   const onError = (error: Error) => {
     console.log('error has occurred');
@@ -79,7 +82,6 @@ const runBot = (token: string|undefined) => {
 
   client.on('message', onMessage);
   client.on('error', onError);
-
 
   client.login(token)
     .then(() => {
