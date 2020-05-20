@@ -47,7 +47,7 @@ const runBot = (token: string|undefined) => {
 
     if (commandToRun) {
       const {
-        channel, author, guild, member, member: { voiceChannel, permissions },
+        channel, author, guild, member,
       } = msg;
 
       if (commandToRun.check) {
@@ -56,13 +56,13 @@ const runBot = (token: string|undefined) => {
         if (!checkResult.pass) {
           return console.log(
             // eslint-disable-next-line max-len
-            `\nXXXXXX[COMMAND FAILED]\n[${author.username}] has failed executing command [${commandToRun.name}] in [${guild.name}] id [${guild.id}]`,
+            `\nXXXXXX[COMMAND FAILED]\n[${author.username}] has failed executing command [${commandToRun.name}] in [${guild?.name}] id [${guild?.id}]`,
             `\n${checkResult.reason}` ? `Reason: ${checkResult.reason}` : '',
           );
         }
       }
 
-      if (commandToRun.requiresVoiceChannel && !voiceChannel) {
+      if (commandToRun.requiresVoiceChannel && !member?.voice) {
         const embed = Embed.createEmbed({
           contents: 'You need to be in a voice channel to use this command.',
         }, true);
@@ -70,8 +70,10 @@ const runBot = (token: string|undefined) => {
         return channel.send(embed);
       }
 
-      if (commandToRun.requiredPermissions && !permissions.has(commandToRun.requiredPermissions)) {
-        const missingPermissions = commandToRun.requiredPermissions.filter((x) => !permissions.toArray().includes(x));
+      if (commandToRun.requiredPermissions && !member?.permissions.has(commandToRun.requiredPermissions)) {
+        const missingPermissions = commandToRun.requiredPermissions.filter(
+          (x) => !member?.permissions.toArray().includes(x),
+        );
 
         const embed = Embed.createEmbed({
           contents: `You do not have the required permissions to use this command.
@@ -83,7 +85,7 @@ const runBot = (token: string|undefined) => {
 
       console.log(
         // eslint-disable-next-line max-len
-        `\n======[COMMAND EXECUTED]\n[${author.username}] has executed command [${commandToRun.name}] in [${guild.name}] id [${guild.id}]\n`,
+        `\n======[COMMAND EXECUTED]\n[${author.username}] has executed command [${commandToRun.name}] in [${guild?.name}] id [${guild?.id}]\n`,
       );
 
       commandToRun.action(commandArgs);

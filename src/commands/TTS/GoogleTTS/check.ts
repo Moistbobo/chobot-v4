@@ -7,17 +7,17 @@ const check = async (args: CommandArgs): Promise<{pass:boolean, reason?:string}>
     msg: {
       channel,
       channel: { id: channelId },
-      member: { voiceChannel },
-      guild: { id: serverId },
+      member,
+      guild,
       content,
     },
   } = args;
 
-  if (content.split.length < 2 || !voiceChannel) {
+  if (content.split.length < 2 || !member || !member.voice || !guild) {
     return { pass: false, reason: 'Insufficient parameters for command' };
   }
 
-  const isTTSChannel = await TTSTools.isTTSChannel(channelId, serverId);
+  const isTTSChannel = await TTSTools.isTTSChannel(channelId, guild.id);
   if (!isTTSChannel) {
     await channel.send(Embed.createMessage('This channel is not tts enabled', true));
     return { pass: false, reason: 'Command executed in non-tts channel' };

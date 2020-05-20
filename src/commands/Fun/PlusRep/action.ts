@@ -13,16 +13,18 @@ const action = async (args: CommandArgs) => {
         avatarURL,
         defaultAvatarURL,
       },
-      member: {
-        displayName: senderName,
-      },
+      member,
       channel,
     },
   } = args;
 
   const firstUserMentioned = FindMemberInServer(msg);
 
-  if (!firstUserMentioned) return;
+  if (!firstUserMentioned || !member || firstUserMentioned.id === senderId) return;
+
+  const {
+    displayName: senderName,
+  } = member;
 
   const { displayName: receiverName } = firstUserMentioned;
 

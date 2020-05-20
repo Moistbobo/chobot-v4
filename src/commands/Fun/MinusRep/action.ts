@@ -11,18 +11,17 @@ const action = async (args: CommandArgs) => {
       author: {
         id: senderId,
       },
-      member: {
-        displayName: senderName,
-      },
+      member,
       channel,
     },
   } = args;
 
   const firstUserMentioned = FindMemberInServer(msg);
 
-  if (!firstUserMentioned) return;
+  if (!firstUserMentioned || !member || firstUserMentioned.id === senderId) return;
 
   const { displayName: receiverName } = firstUserMentioned;
+  const { displayName: senderName } = member;
 
   const senderFun = await FunResult.findOne({ userID: senderId }) || new FunResult({ userID: senderId });
   const receiverFun = await FunResult.findOne({ userID: firstUserMentioned.id })
