@@ -1,20 +1,32 @@
 import moment from 'moment';
 import Tools from './tools';
-import TTSTools from '../TTSTools';
 import { CommandArgs } from '../../../models/CommandArgs';
-import Embed from '../../../helpers/Embed';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const action = async (args: CommandArgs) => {
   const {
     msg: {
-      member: { voiceChannel },
+      member,
+      guild,
       content,
-      guild: { id: serverId },
     },
     voiceConnections,
   } = args;
+
+  if (!member || !guild) return;
+
+  const {
+    id: serverId,
+  } = guild;
+
+  const {
+    voice: {
+      channel: voiceChannel,
+    },
+  } = member;
+
+  if (!voiceChannel) return;
 
   const lang = Tools.getLanguage(content);
   const gender = Tools.getGender(content);
@@ -42,7 +54,7 @@ const action = async (args: CommandArgs) => {
       channel: voiceChannel,
       lastActivity: moment().toISOString(),
     };
-    voiceConnections[serverId].session.playFile(`./gtts/${serverId}.wav`);
+    voiceConnections[serverId].session.play(`./gtts/${serverId}.wav`);
   } catch (err) {
     console.log('Error occurred', err.message);
   }

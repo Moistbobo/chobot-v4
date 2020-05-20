@@ -28,14 +28,13 @@ const action = async (args: CommandArgs) => {
     funResult.iq.lastUpdate = moment().toISOString();
 
     const iqImage = await Tools.generateIQImage(iqValue);
-    await Promise.all([
-      iqImage.writeAsync(`./iqTest/${targetUser.id}.png`),
-      funResult.save(),
-    ]);
+    await iqImage.writeAsync(`./iqTest/${targetUser.id}.png`);
+    await funResult.save();
 
     const embed = Embed.createEmbed({
-      contents: `${targetUser}'s iq is ${iqValue}\n${iqValue > 300 ? 'Don\'t worry, you\'re still stupid' : ''}`,
-      thumbnail: targetUser.avatarURL,
+      // eslint-disable-next-line max-len
+      contents: `${targetUser.username}'s iq is **${iqValue}**\n${iqValue > 300 ? 'Don\'t worry, you\'re still stupid' : ''}`,
+      thumbnail: targetUser.avatarURL() || targetUser.defaultAvatarURL,
     });
 
     await channel.send({
@@ -49,9 +48,10 @@ const action = async (args: CommandArgs) => {
     const { iq: { value: iqValue, lastUpdate: _lastUpdate } } = funResult;
 
     const embed = Embed.createEmbed({
-      contents: `${targetUser}'s iq is ${iqValue}\n${iqValue > 300 ? 'Don\'t worry, you\'re still stupid' : ''}`,
+      // eslint-disable-next-line max-len
+      contents: `${targetUser.username}'s iq is **${iqValue}**\n${iqValue > 300 ? 'Don\'t worry, you\'re still stupid' : ''}`,
       footer: `Next check: ${moment(_lastUpdate).add(1, 'day').fromNow()}`,
-      thumbnail: targetUser.avatarURL,
+      thumbnail: targetUser.avatarURL() || targetUser.defaultAvatarURL,
     });
 
     await channel.send({

@@ -5,15 +5,16 @@ const action = (args: CommandArgs) => {
   const {
     voiceConnections,
     msg: {
-      member: { voiceChannel: { id: voiceChannelId } },
-      guild: { id: serverId },
-      channel,
+      member,
+      guild,
     },
   } = args;
 
-  if (voiceChannelId === voiceConnections[serverId].channel.id) {
-    voiceConnections[serverId].session.disconnect();
-    delete voiceConnections[serverId];
+  if (!member || !guild) return;
+
+  if (member.voice.channelID === voiceConnections[guild.id].channel.id) {
+    voiceConnections[guild.id].session.disconnect();
+    delete voiceConnections[guild.id];
   }
 };
 

@@ -28,16 +28,16 @@ const action = async (args: CommandArgs) => {
     funResult.userID = targetUser.id;
 
     const embed = Embed.createEmbed({
-      contents: `${targetUser} is **${gayValue}%** gay.`,
-      thumbnail: targetUser.avatarURL,
+      contents: `${targetUser.username} is **${gayValue}%** gay.`,
+      thumbnail: targetUser.avatarURL() || targetUser.defaultAvatarURL,
     });
 
     await funResult.save();
     await channel.send(embed);
   } else {
     const embed = Embed.createEmbed({
-      contents: `${targetUser} is **${funResult.gay.value}%** gay.`,
-      thumbnail: targetUser.avatarURL,
+      contents: `${targetUser.username} is **${funResult.gay.value}%** gay.`,
+      thumbnail: targetUser.avatarURL() || targetUser.defaultAvatarURL,
       footer: `Next check: ${moment(funResult.gay.lastUpdate).add(1, 'day').fromNow()}`,
     });
 

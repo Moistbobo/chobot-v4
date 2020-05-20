@@ -17,8 +17,8 @@ const action = async (args: CommandArgs) => {
     joinedAt,
     roles,
     premiumSince,
+    user,
     user: {
-      avatarURL,
       defaultAvatarURL,
       username,
     },
@@ -35,7 +35,7 @@ const action = async (args: CommandArgs) => {
 
   const embed = Embed.createEmbed({
     title: `Whois report for ${displayName}`,
-    thumbnail: avatarURL || defaultAvatarURL,
+    thumbnail: user.avatarURL({ format: 'jpeg' }) || defaultAvatarURL,
     extraFields:
     [
       {
@@ -74,11 +74,11 @@ const action = async (args: CommandArgs) => {
       },
       {
         name: 'Avatar Link',
-        value: avatarURL || defaultAvatarURL,
+        value: user.avatarURL({ format: 'jpeg' }) || defaultAvatarURL,
       },
       {
         name: 'Roles',
-        value: roles.array().join(', '),
+        value: roles.cache.array().join(', '),
       },
       {
         name: 'Member since',

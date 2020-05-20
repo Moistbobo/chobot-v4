@@ -10,17 +10,17 @@ const action = async (args: CommandArgs) => {
       channel: {
         id: channelId,
       },
-      member: {
-        guild: {
-          id: serverId,
-        },
-        voiceChannelID,
-        voiceChannel: {
-          name: voiceChannelName,
-        },
-      },
+      member,
     },
   } = args;
+
+  if (!member) return;
+
+  const {
+    guild: {
+      id: serverId,
+    },
+  } = member;
 
   const serverConfig = await ServerConfig.findOne({ serverId }) || new ServerConfig({ serverId });
 

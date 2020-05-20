@@ -9,10 +9,7 @@ const Rep = async (args: CommandArgs) => {
     msg: {
       channel,
       content,
-      member: {
-        displayName,
-        id: authorId,
-      },
+      member,
       author: {
         avatarURL,
         defaultAvatarURL,
@@ -20,12 +17,18 @@ const Rep = async (args: CommandArgs) => {
     },
   } = args;
 
+  if (!member) return;
+
+  const {
+    id: authorId,
+    displayName,
+  } = member;
+
   if (content.split(' ').length > 1) {
     const mentionedUser = FindMemberInServer(msg);
 
-    if (!mentionedUser) return;
 
-    if (mentionedUser.id === authorId) return;
+    if (!mentionedUser) return;
 
     const funResult = await FunResult.findOne({ userID: mentionedUser.id })
         || new FunResult({ userID: mentionedUser.id });
@@ -33,7 +36,7 @@ const Rep = async (args: CommandArgs) => {
     const embed = Embed.createEmbed({
       title: 'Reputation',
       contents: `${mentionedUser.displayName} has ${funResult.reputation.value} reputation`,
-      thumbnail: mentionedUser.user.avatarURL || mentionedUser.user.defaultAvatarURL,
+      thumbnail: mentionedUser.user.avatarURL() || mentionedUser.user.defaultAvatarURL,
     });
 
     await channel.send(embed);
@@ -44,7 +47,7 @@ const Rep = async (args: CommandArgs) => {
     const embed = Embed.createEmbed({
       title: 'Reputation',
       contents: `${displayName} has ${funResult.reputation.value} reputation`,
-      thumbnail: avatarURL || defaultAvatarURL,
+      thumbnail: member.user.avatarURL() || member.user.defaultAvatarURL,
     });
 
     await channel.send(embed);

@@ -7,7 +7,7 @@ const createEmbed = (args: EmbedArgs, error = false) => {
     extraFields,
   } = args;
 
-  const embed = new Discord.RichEmbed()
+  const embed = new Discord.MessageEmbed()
     .setColor(error ? '#f08080' : '#499369');
 
   if (footer) embed.setFooter(footer);
@@ -21,15 +21,11 @@ const createEmbed = (args: EmbedArgs, error = false) => {
   if (extraFields) {
     extraFields.forEach((ef) => {
       if (ef !== null) {
-        if (ef.name === 'blank') {
-          embed.addBlankField(ef.inline);
-        } else {
-          embed.addField(
-            ef.name || '',
-            ef.value || '',
-            ef.inline || false,
-          );
-        }
+        embed.addField(
+          ef.name || '',
+          ef.value || '',
+          ef.inline || false,
+        );
       }
     });
   }

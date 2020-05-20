@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { GuildMember } from 'discord.js';
 import { CommandArgs } from '../../../models/CommandArgs';
 import FindMemberInServer from '../../../helpers/FindMemberInServer';
 import FunResult from '../../../models/db/FunResult';
@@ -20,7 +21,7 @@ const action = async (args: CommandArgs) => {
   if (targetUser.id === '711786846811586600') {
     const embed = Embed.createEmbed({
       contents: 'You are brandon.',
-      thumbnail: targetUser.avatarURL,
+      thumbnail: targetUser.avatarURL() || targetUser.defaultAvatarURL,
     });
 
     await channel.send(embed);
@@ -41,8 +42,8 @@ const action = async (args: CommandArgs) => {
     const racistLevel = Tools.mapRacistLevel(racistValue);
 
     const embed = Embed.createEmbed({
-      contents: `${targetUser} is **${racistValue}** brandons racist ${Tools.description[racistLevel]}`,
-      thumbnail: targetUser.avatarURL,
+      contents: `${targetUser.username} is **${racistValue}** brandons racist ${Tools.description[racistLevel]}`,
+      thumbnail: targetUser.avatarURL() || targetUser.defaultAvatarURL,
       image: Tools.images[racistLevel][Math.floor(Math.random() * Tools.images[racistLevel].length)],
     });
 
@@ -53,8 +54,9 @@ const action = async (args: CommandArgs) => {
 
 
     const embed = Embed.createEmbed({
-      contents: `${targetUser} is **${funResult.racist.value}** brandons racist ${Tools.description[racistLevel]}`,
-      thumbnail: targetUser.avatarURL,
+      // eslint-disable-next-line max-len
+      contents: `${targetUser.username} is **${funResult.racist.value}** brandons racist ${Tools.description[racistLevel]}`,
+      thumbnail: targetUser.avatarURL() || targetUser.defaultAvatarURL,
       image: Tools.images[racistLevel][Math.floor(Math.random() * Tools.images[racistLevel].length)],
       footer: `Next check: ${moment(funResult.racist.lastUpdate).add(1, 'day').fromNow()}`,
     });

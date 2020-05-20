@@ -15,8 +15,7 @@ const mapRacistLevel = (value: number) => {
 };
 
 const images = [
-  ['https://i.imgur.com/i6L9mjN.jpg',
-    'https://i.imgur.com/ZzBdwlZ.png',
+  ['https://i.imgur.com/ZzBdwlZ.png',
     'https://i.imgur.com/QV12TlA.png',
     'https://i.imgur.com/EzEHWkK.png'], // 0 - 250
   [''], // 251 - 500,
