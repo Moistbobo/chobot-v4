@@ -17,7 +17,7 @@ const action = async (args: CommandArgs) => {
     targetUser = mentionedUser.user;
   }
 
-  const funResult = await FunResult.findOne({ userID: targetUser.id }) || new FunResult();
+  const funResult = await FunResult.findOne({ userID: targetUser.id }) || new FunResult({ userID: targetUser.id });
 
   const { iq: { lastUpdate } } = funResult;
 

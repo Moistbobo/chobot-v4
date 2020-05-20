@@ -28,7 +28,7 @@ const action = async (args: CommandArgs) => {
     return;
   }
 
-  const funResult = await FunResult.findOne({ userID: targetUser.id }) || new FunResult();
+  const funResult = await FunResult.findOne({ userID: targetUser.id }) || new FunResult({ userID: targetUser.id });
 
   const { racist: { lastUpdate } } = funResult;
 
