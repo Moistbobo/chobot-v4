@@ -18,7 +18,7 @@ const action = async (args: CommandArgs) => {
     targetUser = mentionedUser.user;
   }
 
-  if (targetUser.id === '711786846811586600') {
+  if (targetUser.id === '128031927356620800') {
     const embed = Embed.createEmbed({
       contents: 'You are brandon.',
       thumbnail: targetUser.avatarURL() || targetUser.defaultAvatarURL,
