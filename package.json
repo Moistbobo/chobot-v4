@@ -17,16 +17,19 @@
     "@types/moment": "^2.13.0",
     "@types/mongoose": "^5.7.20",
     "@types/node-fetch": "^2.5.7",
+    "bufferutil": "^4.0.1",
     "cheerio": "^1.0.0-rc.3",
     "discord.js": "^11.5.1",
     "dotenv": "^8.2.0",
+    "erlpack": "^0.1.3",
     "fast-xml-parser": "^3.16.0",
     "jimp": "^0.12.0",
     "moment": "^2.25.3",
     "mongodb": "^3.5.7",
     "mongoose": "^5.9.14",
     "node-fetch": "^2.6.0",
-    "nodemon": "^2.0.1"
+    "nodemon": "^2.0.1",
+    "sodium": "^3.0.2"
   },
   "devDependencies": {
     "@types/node": "^12.12.14",
