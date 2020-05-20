@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsc -b && cp ./.env ./dist/ && nodemon dist/index.js",
+    "dev": "tsc -b && cp ./package.json ./dist/ && cp ./.env ./dist/ && nodemon dist/index.js",
     "build-and-run": "tsc --build && node dist/index.js"
   },
   "author": "",

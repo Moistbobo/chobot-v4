@@ -3,8 +3,9 @@ import moment from 'moment';
 import { CommandArgs } from '../../../models/CommandArgs';
 import FindMemberInServer from '../../../helpers/FindMemberInServer';
 import Embed from '../../../helpers/Embed';
+import FunResult from '../../../models/db/FunResult';
 
-const action = (args: CommandArgs) => {
+const action = async (args: CommandArgs) => {
   const { msg, msg: { channel } } = args;
   const taggedUser = FindMemberInServer(msg);
 
@@ -21,6 +22,15 @@ const action = (args: CommandArgs) => {
       defaultAvatarURL,
     },
   } = taggedUser as GuildMember;
+
+  const funResult = await FunResult.findOne({ userID: taggedUser.id }) || new FunResult({ userID: taggedUser });
+
+  const {
+    gay: { value: gay },
+    iq: { value: iq },
+    racist: { value: racist },
+    reputation: { value: rep },
+  } = funResult;
 
   const embed = Embed.createEmbed({
     title: `Whois report for ${displayName}`,
@@ -41,6 +51,25 @@ const action = (args: CommandArgs) => {
         name: 'Is booster',
         value: `${!!premiumSince}`,
         inline: true,
+      },
+      {
+        name: 'Iq',
+        value: `${iq || 'N/A'}`,
+        inline: true,
+      },
+      {
+        name: 'Gay',
+        value: `${gay || 'N/A'}`,
+        inline: true,
+      },
+      {
+        name: 'Racist',
+        value: `${racist ? `${racist} brandons` : 'N/A'}`,
+        inline: true,
+      },
+      {
+        name: 'Reputation',
+        value: `${rep}`,
       },
       {
         name: 'Avatar Link',
