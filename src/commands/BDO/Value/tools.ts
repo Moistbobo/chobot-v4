@@ -36,7 +36,7 @@ const formattedPrice = (value: number, needHumanReadable: boolean) => {
   const humanReadable = needHumanReadable
     ? wrapInputWithFormatting(toHumanReadable(value))
     : '';
-  return `\`${value}\`${humanReadable}`;
+  return `\`${formatNumber(value)}\`${humanReadable}`;
 };
 
 export default {

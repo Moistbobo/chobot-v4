@@ -20,6 +20,7 @@ const action = async (args: CommandArgs) => {
     user: {
       avatarURL,
       defaultAvatarURL,
+      username,
     },
   } = taggedUser as GuildMember;
 
@@ -38,8 +39,8 @@ const action = async (args: CommandArgs) => {
     extraFields:
     [
       {
-        name: 'Display Name',
-        value: displayName,
+        name: 'Name',
+        value: username,
         inline: true,
       },
       {
