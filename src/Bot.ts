@@ -16,7 +16,7 @@ const runBot = (token: string|undefined) => {
   const voiceConnections: {[index:string]: BotVoiceConnection} = {};
 
   const onError = (error: Error) => {
-    console.log('error has occurred');
+    console.log('error has occurred', error.message);
   };
 
   const onMessage = async (msg: Discord.Message) => {
@@ -26,6 +26,8 @@ const runBot = (token: string|undefined) => {
       console.error('Please enter a bot prefix in the .env file');
       return;
     }
+
+    if (msg.content[0] !== commandPrefix) return;
 
     const userCommand = msg.content.split(' ')[0].toLowerCase().replace(commandPrefix, '').trim();
 

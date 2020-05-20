@@ -11,6 +11,10 @@ export interface IFunResult extends Document {
     gay: IFunObject,
     iq: IFunObject,
     racist: IFunObject
+    reputation: {
+        value: number;
+        lastUpdate: string;
+    }
 }
 
 export const FunObjectSchema = new Schema({
@@ -43,6 +47,16 @@ export const FunResultSchema = new Schema({
   racist: {
     type: FunObjectSchema,
     default: defaultFunObject,
+  },
+  reputation: {
+    value: {
+      type: Number,
+      default: 0,
+    },
+    lastUpdate: {
+      type: String,
+      default: '1970-01-01T00:00:00Z',
+    },
   },
 });
 
