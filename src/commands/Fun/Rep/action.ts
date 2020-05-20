@@ -25,6 +25,8 @@ const Rep = async (args: CommandArgs) => {
 
     if (!mentionedUser) return;
 
+    if (mentionedUser.id === authorId) return;
+
     const funResult = await FunResult.findOne({ userID: mentionedUser.id })
         || new FunResult({ userID: mentionedUser.id });
 
