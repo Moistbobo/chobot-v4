@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@discordjs/opus": "^0.3.2",
     "@google-cloud/text-to-speech": "^2.3.0",
     "@types/cheerio": "^0.22.18",
     "@types/moment": "^2.13.0",
