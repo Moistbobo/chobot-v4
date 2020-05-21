@@ -5,6 +5,8 @@ import PlusRep from './PlusRep';
 import MinusRep from './MinusRep';
 import Rep from './Rep';
 import RepHistory from './RepHistory';
+import Deathmath from './Deathmatch';
+import DeathmatchWins from './DeathmatchWins';
 
 export default [
   Gay,
@@ -14,4 +16,6 @@ export default [
   MinusRep,
   Rep,
   RepHistory,
+  Deathmath,
+  DeathmatchWins,
 ];

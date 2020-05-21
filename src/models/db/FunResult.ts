@@ -15,6 +15,7 @@ export interface IFunResult extends Document {
         value: number;
         lastUpdate: string;
     }
+    deathmatchWins: number;
 }
 
 export const FunObjectSchema = new Schema({
@@ -57,6 +58,10 @@ export const FunResultSchema = new Schema({
       type: String,
       default: '1970-01-01T00:00:00Z',
     },
+  },
+  deathmatchWins: {
+    type: Number,
+    default: 0,
   },
 });
 
