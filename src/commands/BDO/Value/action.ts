@@ -56,7 +56,7 @@ const action = (args: CommandArgs) => {
     ? `${formattedPrice(finalSellingPrice, needHumanReadable)}with value pack and fame bonus`
     : `${formattedPrice(valuePackPrice, needHumanReadable)}with value pack`}
     
-      ${fameBonus !== 0 ? `With a fame bonus of ${formattedPrice(fameBonus, needHumanReadable)} \`(${fameMult}%)\``
+    ${fameBonus !== 0 ? `With a fame bonus of ${formattedPrice(fameBonus, needHumanReadable)} \`(${fameMult * 100}%)\``
     : 'Not including fame bonus.'}`,
     }),
   );
