@@ -1,4 +1,6 @@
 import Bot from './src/Bot';
 import AppConfig from './src/AppConfig';
 
-Bot.runBot(AppConfig.token);
+setTimeout(() => {
+  Bot.runBot(AppConfig.token);
+}, 300);

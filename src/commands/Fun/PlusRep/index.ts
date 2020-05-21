@@ -6,7 +6,7 @@ const PlusRep: Command = {
   action,
   check,
   name: '+Rep',
-  triggers: ['+rep', 'plusrep', 'prep'],
+  triggers: ['+rep', 'plusrep', 'prep', 'rep+'],
   description: '',
 };
 
