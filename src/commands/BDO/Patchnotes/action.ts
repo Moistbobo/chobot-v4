@@ -49,13 +49,12 @@ const getPatchNotesNew = (args: any) => {
     });
 };
 
-const getPatchNotesLegacy = (args: any) => {
-  const history = Math.min((parseFloat(args.message.content) || 1), 10);
-
+const getPatchNotesLegacy = (args: any, history: number) => {
   fetch(rssFeedUrl)
     .then((result) => result.text())
     .then((xml) => {
       const tobj = parser.getTraversalObj(xml);
+      console.log(tobj);
       const json = parser.convertToJson(tobj);
 
       const pn = json.rss.channel.item;
@@ -74,20 +73,26 @@ const getPatchNotesLegacy = (args: any) => {
         Embed.createEmbed(embedArgs),
       );
     })
-    .catch((err) => args.msg.channel.send(
-      Embed.createEmbed({
-        contents: 'A network error occurred while retrieving patchnotes',
-      }, true),
-    ));
+    .catch((err) => {
+      console.log(err);
+      args.msg.channel.send(
+        Embed.createEmbed({
+          contents: 'A network error occurred while retrieving patchnotes',
+        }, true),
+      );
+    });
 };
 
 const action = (args: CommandArgs) => {
-  const history = Math.min((parseFloat(args.msg.content) || 1), 10);
+  const { msg: { content } } = args;
+
+  const [, numPN] = content.split(' ');
+  const history = Math.min((parseFloat(numPN) || 1), 15);
 
   if (history === 1) {
     getPatchNotesNew(args);
   } else if (history > 1) {
-    getPatchNotesLegacy(args);
+    getPatchNotesLegacy(args, history);
   }
 };
 
