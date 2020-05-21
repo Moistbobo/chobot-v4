@@ -1,17 +1,33 @@
 version: 2.1
 orbs:
-  node: circleci/node@2.1.1
+  node: circleci/node@1.1.6
 jobs:
   build-and-test:
     executor:
       name: node/default
     steps:
       - checkout
-      - node/install:
-          install-yarn: true
-          node-version: latest
-      - run: node --version
+      - node/with-cache:
+          steps:
+            # Download and cache dependencies
+            - restore_cache:
+                keys:
+                  - v1-dependencies-{{ checksum "package.json" }}
+                  # fallback to using the latest cache if no exact match is found
+                  - v1-dependencies-
+            - run: node --version
+            - run: yarn install --ignore-engines
+            - save_cache:
+                paths:
+                  - node_modules
+                key: v1-dependencies-{{ checksum "package.json" }}
+            - run: sudo apt-get install -y autoconf libtool automake g++
+            - run: npm run deploy
 workflows:
     build-and-test:
       jobs:
-        - build-and-test
+        - build-and-test:
+            filters:
+              branches:
+                only:
+                  - develop
