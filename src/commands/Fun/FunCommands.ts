@@ -4,6 +4,7 @@ import Iq from './Iq';
 import PlusRep from './PlusRep';
 import MinusRep from './MinusRep';
 import Rep from './Rep';
+import RepHistory from './RepHistory';
 
 export default [
   Gay,
@@ -12,4 +13,5 @@ export default [
   PlusRep,
   MinusRep,
   Rep,
+  RepHistory,
 ];
