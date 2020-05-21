@@ -6,7 +6,7 @@ const MinusRep: Command = {
   action,
   check,
   name: '-Rep',
-  triggers: ['-rep', 'minusRep', 'mrep', 'nrep'],
+  triggers: ['-rep', 'minusRep', 'mrep', 'nrep' , 'rep-'],
   description: '',
 };
 
