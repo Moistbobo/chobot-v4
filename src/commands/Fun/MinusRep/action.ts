@@ -3,6 +3,7 @@ import { CommandArgs } from '../../../models/CommandArgs';
 import FindMemberInServer from '../../../helpers/FindMemberInServer';
 import FunResult from '../../../models/db/FunResult';
 import Embed from '../../../helpers/Embed';
+import { RepHistory } from '../../../models/db/RepHistory';
 
 const action = async (args: CommandArgs) => {
   const {
@@ -31,9 +32,18 @@ const action = async (args: CommandArgs) => {
   const { reputation: { lastUpdate: senderLastUpdate } } = senderFun;
   const { reputation: { value: receiverRep } } = receiverFun;
 
-  if (moment(moment()).diff(moment(senderLastUpdate), 'days') > 1) {
+  if (moment(moment()).diff(moment(senderLastUpdate), 'ms') > 1) {
     senderFun.reputation.lastUpdate = moment().toISOString();
     receiverFun.reputation.value = receiverRep - 1;
+
+    const repHistory = new RepHistory(
+      {
+        userId: firstUserMentioned.id,
+        senderId,
+        isIncrease: false,
+        time: moment().toISOString(),
+      },
+    );
 
     const embed = Embed.createEmbed(
       {
@@ -44,6 +54,7 @@ const action = async (args: CommandArgs) => {
 
     await channel.send(embed);
     await senderFun.save();
+    await repHistory.save();
     await receiverFun.save();
   } else {
     const embed = Embed.createEmbed({
