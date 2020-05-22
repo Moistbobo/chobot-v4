@@ -1,3 +1,5 @@
+import { MessageAttachment } from 'discord.js';
+
 interface ExtraField{
     name:string,
     value:string,
@@ -12,5 +14,6 @@ export interface EmbedArgs {
     url?: string;
     image?: string;
     thumbnail?: string;
+    file?: any;
     extraFields?: Array<ExtraField | null>
 }

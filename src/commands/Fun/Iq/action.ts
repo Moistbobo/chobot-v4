@@ -1,4 +1,5 @@
 import moment from 'moment';
+import Discord from 'discord.js';
 import { CommandArgs } from '../../../models/CommandArgs';
 import FindMemberInServer from '../../../helpers/FindMemberInServer';
 import FunResult from '../../../models/db/FunResult';
@@ -29,37 +30,36 @@ const action = async (args: CommandArgs) => {
 
     const iqImage = await Tools.generateIQImage(iqValue);
     await iqImage.writeAsync(`./iqTest/${targetUser.id}.png`);
+    const attachment = new Discord.MessageAttachment(`./iqTest/${targetUser.id}.png`, `iqTest-${targetUser.id}.png`);
     await funResult.save();
 
     const embed = Embed.createEmbed({
       // eslint-disable-next-line max-len
       contents: `${targetUser.username}'s iq is **${iqValue}**\n${iqValue > 300 ? 'Don\'t worry, you\'re still stupid' : ''}`,
       thumbnail: targetUser.avatarURL() || targetUser.defaultAvatarURL,
+      image: `attachment://iqTest-${targetUser.id}.png`,
+      file: attachment,
     });
 
     await channel.send({
       embed,
-      files: [{
-        attachment: `./iqTest/${targetUser.id}.png`,
-        name: 'iqTest.png',
-      }],
     });
   } else {
     const { iq: { value: iqValue, lastUpdate: _lastUpdate } } = funResult;
+
+    const attachment = new Discord.MessageAttachment(`./iqTest/${targetUser.id}.png`, `iqTest-${targetUser.id}.png`);
 
     const embed = Embed.createEmbed({
       // eslint-disable-next-line max-len
       contents: `${targetUser.username}'s iq is **${iqValue}**\n${iqValue > 300 ? 'Don\'t worry, you\'re still stupid' : ''}`,
       footer: `Next check: ${moment(_lastUpdate).add(1, 'day').fromNow()}`,
       thumbnail: targetUser.avatarURL() || targetUser.defaultAvatarURL,
+      image: `attachment://iqTest-${targetUser.id}.png`,
+      file: attachment,
     });
 
     await channel.send({
       embed,
-      files: [{
-        attachment: `./iqTest/${targetUser.id}.png`,
-        name: 'iqTest.png',
-      }],
     });
   }
 };
