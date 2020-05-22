@@ -1,8 +1,11 @@
-import { Document, Schema, model } from 'mongoose';
+import {
+  Document, Schema, model, Types,
+} from 'mongoose';
 
 export interface IServerConfig extends Document{
     serverId: string,
-    ttsChannelId: string | null
+    ttsChannelId: string | null,
+    commandRules: any,
 }
 
 export const ServerConfigSchema = new Schema({
@@ -12,6 +15,13 @@ export const ServerConfigSchema = new Schema({
   },
   ttsChannelId: {
     type: String,
+  },
+  commandRules: {
+    type: Map,
+    of: [String],
+    default: {
+      test: ['1'],
+    },
   },
 });
 
