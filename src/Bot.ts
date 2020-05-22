@@ -6,6 +6,8 @@ import AppConfig from './AppConfig';
 import Db from './services/db/Db';
 import Embed from './helpers/Embed';
 import { BotVoiceConnection } from './models/BotVoiceConnection';
+import { ServerConfig } from './models/db/ServerConfig';
+import MentionChannel from './helpers/MentionChannel';
 
 const runBot = (token: string|undefined) => {
   if (!token) {
@@ -49,6 +51,23 @@ const runBot = (token: string|undefined) => {
       const {
         channel, author, guild, member,
       } = msg;
+
+      const serverConfig = await ServerConfig.findOne({ serverId: guild?.id })
+          || new ServerConfig({ serverId: guild?.id });
+
+      const allowedChannels = serverConfig.commandRules.get(commandToRun.name.toLowerCase());
+
+      if (allowedChannels && allowedChannels.length > 0 && !allowedChannels.includes(channel.id)) {
+        const errorMessage = await channel.send(Embed.createMessage(
+          `Command ${commandToRun.name} is only enabled on ${allowedChannels
+            .map((x: string) => MentionChannel(x)).join(', ')}`,
+        ));
+
+        return Promise.all([
+          errorMessage.delete({ timeout: 5000 }),
+          msg.delete({ timeout: 5000 }),
+        ]);
+      }
 
       if (commandToRun.check) {
         const checkResult:{pass:boolean, reason?:string} = await commandToRun.check(commandArgs);
