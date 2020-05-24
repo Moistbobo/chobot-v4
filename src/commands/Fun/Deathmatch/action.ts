@@ -142,6 +142,11 @@ const action = async (args: CommandArgs) => {
     ],
   });
 
+  const funResult = await FunResult.findOne({ userID: fighterAHp > 0 ? authorId : mentionedUser.id })
+      || new FunResult({ userID: fighterAHp > 0 ? authorId : mentionedUser.id });
+  funResult.deathmatchWins += 1;
+  await funResult.save();
+
   await fightMessage.edit(newEmbed);
 };
 
