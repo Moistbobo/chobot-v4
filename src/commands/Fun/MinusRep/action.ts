@@ -32,7 +32,7 @@ const action = async (args: CommandArgs) => {
   const { reputation: { lastUpdate: senderLastUpdate } } = senderFun;
   const { reputation: { value: receiverRep } } = receiverFun;
 
-  if (moment(moment()).diff(moment(senderLastUpdate), 'day') > 1) {
+  if (moment(moment()).diff(moment(senderLastUpdate), 'day') >= 1) {
     senderFun.reputation.lastUpdate = moment().toISOString();
     receiverFun.reputation.value = receiverRep - 1;
 

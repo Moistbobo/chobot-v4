@@ -4,7 +4,7 @@ import { EmbedArgs } from '../models/EmbedArgs';
 const createEmbed = (args: EmbedArgs, error = false) => {
   const {
     footer, contents, author, url, title, image, thumbnail,
-    extraFields,
+    extraFields, file,
   } = args;
 
   const embed = new Discord.MessageEmbed()
@@ -17,6 +17,7 @@ const createEmbed = (args: EmbedArgs, error = false) => {
   if (url) embed.setURL(url);
   if (image) embed.setImage(image);
   if (thumbnail) embed.setThumbnail(thumbnail);
+  if (file) embed.attachFiles(file);
 
   if (extraFields) {
     extraFields.forEach((ef) => {

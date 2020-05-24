@@ -30,19 +30,36 @@ const action = async (args: CommandArgs) => {
   let fighterAHp = 100;
   let fighterBHp = 100;
 
+  let fighterATurn = Math.random() < 0.5;
+
   const intialEmbed = Embed.createEmbed({
     title: `${member.displayName} V.S ${mentionedUser.displayName}`,
-    contents: '```The fight has begun```',
+    extraFields: [
+      {
+        name: `${member.displayName} HP`,
+        value: `${fighterAHp}`,
+        inline: true,
+      },
+      {
+        name: `${mentionedUser.displayName} HP`,
+        value: `${fighterBHp}`,
+        inline: true,
+      },
+      {
+        name: 'Battle Status',
+        value: `The fight has begun ${fighterATurn
+          ? `${MentionUser(authorId)}`
+          : `${MentionUser(mentionedUser.id)}`} gets first move`,
+      },
+    ],
   });
 
   const fightMessage = await channel.send(intialEmbed);
 
-  let fighterATurn = Math.random() < 0.5;
-
   let oldMessage = '';
 
   while (fighterAHp > 0 && fighterBHp > 0) {
-    await sleep(1500);
+    await sleep(2000);
 
     const damage = Math.floor((Math.random() * 40) + 5);
 
@@ -79,6 +96,11 @@ const action = async (args: CommandArgs) => {
           inline: true,
         },
         {
+          name: '⠀⠀',
+          value: `${fighterATurn ? '➡️' : '⬅️'}\n${damage}`,
+          inline: true,
+        },
+        {
           name: `${mentionedUser.displayName} HP`,
           value: `${fighterBHp}`,
           inline: true,
@@ -97,24 +119,35 @@ const action = async (args: CommandArgs) => {
 
   await sleep(1500);
 
-  if (fighterAHp > 0) {
-    const funResult = await FunResult.findOne({ userID: authorId }) || new FunResult({ userID: authorId });
-    funResult.deathmatchWins += 1;
-    await funResult.save();
+  const winMessage = fighterAHp > 0 ? `${MentionUser(authorId)} has defeated ${MentionUser(mentionedUser.id)}`
+    : `${MentionUser(mentionedUser.id)} has defeated ${MentionUser(authorId)}`;
 
-    await channel.send(Embed.createMessage(
-      `${MentionUser(authorId)} has defeated ${MentionUser(mentionedUser.id)}`,
-    ));
-  } else {
-    const funResult = await FunResult.findOne({ userID: mentionedUser.id })
-        || new FunResult({ userID: mentionedUser.id });
-    funResult.deathmatchWins += 1;
-    await funResult.save();
+  const newEmbed = Embed.createEmbed({
+    title: `${member.displayName} V.S ${mentionedUser.displayName}`,
+    extraFields: [
+      {
+        name: `${member.displayName} HP`,
+        value: `${fighterAHp}`,
+        inline: true,
+      },
+      {
+        name: `${mentionedUser.displayName} HP`,
+        value: `${fighterBHp}`,
+        inline: true,
+      },
+      {
+        name: 'Battle Status',
+        value: `🏆 ${winMessage} 🏆`,
+      },
+    ],
+  });
 
-    await channel.send(Embed.createMessage(
-      `${MentionUser(mentionedUser.id)} has defeated ${MentionUser(authorId)}`,
-    ));
-  }
+  const funResult = await FunResult.findOne({ userID: fighterAHp > 0 ? authorId : mentionedUser.id })
+      || new FunResult({ userID: fighterAHp > 0 ? authorId : mentionedUser.id });
+  funResult.deathmatchWins += 1;
+  await funResult.save();
+
+  await fightMessage.edit(newEmbed);
 };
 
 export default action;

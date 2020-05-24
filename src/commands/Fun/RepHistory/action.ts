@@ -21,6 +21,8 @@ const action = async (args:CommandArgs) => {
   if (!member) return;
 
   const firstMentionedUser = FindMemberInServer(msg) || member;
+  const resultsPerPage = 5;
+
 
   const userId = firstMentionedUser ? firstMentionedUser.id : authorId;
 
@@ -34,7 +36,7 @@ const action = async (args:CommandArgs) => {
     return channel.send(embed);
   }
 
-  if (userRepHistory.length < 5) {
+  if (userRepHistory.length < resultsPerPage) {
     const embed = Embed.createEmbed({
       title: `${firstMentionedUser.displayName}'s Reputation History`,
       thumbnail: firstMentionedUser.user.avatarURL() || firstMentionedUser.user.defaultAvatarURL,
@@ -45,7 +47,6 @@ const action = async (args:CommandArgs) => {
   }
 
   let index = 0;
-  const resultsPerPage = 5;
 
   const filter = (
     reaction: any, user:any,
@@ -55,7 +56,7 @@ const action = async (args:CommandArgs) => {
     title: `${firstMentionedUser.displayName}'s Reputation History`,
     thumbnail: firstMentionedUser.user.avatarURL() || firstMentionedUser.user.defaultAvatarURL,
     contents: Tools.renderHistoryItem(userRepHistory.slice(index, index + resultsPerPage)),
-    footer: `Page ${index + 1}/${Math.floor(userRepHistory.length / resultsPerPage)}`,
+    footer: `Page ${index + 1}/${Math.ceil(userRepHistory.length / resultsPerPage)}`,
   });
 
   const firstMessage = await channel.send(embed) as Discord.Message;
@@ -74,8 +75,8 @@ const action = async (args:CommandArgs) => {
     const newEmbed = Embed.createEmbed({
       title: `${firstMentionedUser.displayName}'s Reputation History`,
       thumbnail: firstMentionedUser.user.avatarURL() || firstMentionedUser.user.defaultAvatarURL,
-      contents: Tools.renderHistoryItem(userRepHistory.slice(index, index + resultsPerPage)),
-      footer: `Page ${index + 1}/${Math.floor(userRepHistory.length / resultsPerPage)}`,
+      contents: Tools.renderHistoryItem(userRepHistory.slice(index * resultsPerPage, (index + 1) * resultsPerPage)),
+      footer: `Page ${index + 1}/${Math.ceil(userRepHistory.length / resultsPerPage)}`,
     });
 
     firstMessage.edit(newEmbed);

@@ -21,3 +21,4 @@ workflows:
               branches:
                 only:
                   - develop
+                  - feature/enhancements
