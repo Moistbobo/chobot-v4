@@ -10,10 +10,10 @@ const action = async (args: CommandArgs) => {
     msg: {
       channel,
       member,
+      author,
       guild,
       content,
     },
-    voiceConnections,
   } = args;
 
   if (!member || !guild) return;
@@ -22,24 +22,18 @@ const action = async (args: CommandArgs) => {
     id: serverId,
   } = guild;
 
-  const {
-    voice: {
-      channel: voiceChannel,
-    },
-  } = member;
-
-  if (!voiceChannel) return;
-
   const lang = Tools.getLanguage(content);
   const gender = Tools.getGender(content);
   const textToSpeak = lang
     ? content.split(' ').slice(2).join(' ')
     : content.split(' ').slice(1).join(' ');
 
+  console.log('generating');
   const ttsAudioBinary = await Tools.generateTTS(textToSpeak, lang, gender);
-  await Tools.writeTTSBinaryToWAVFile(ttsAudioBinary, serverId, member.id);
+  await Tools.writeTTSBinaryToWAVFile(ttsAudioBinary, serverId, author.id);
 
-  const attachment = new MessageAttachment(`./gtts/${serverId}-${member.id}.wav`, 'tts.wav');
+  console.log('uploading');
+  const attachment = new MessageAttachment(`./gtts/${serverId}-${author.id}.mp3`, 'tts.mp3');
 
   await channel.send('', attachment);
 };

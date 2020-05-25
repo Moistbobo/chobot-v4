@@ -17,14 +17,14 @@ const writeTTSBinaryToWAV = (ttsByteArray: any, serverID: string): Promise<any> 
   makeGTTSFolderIfNotExist();
   const [audio] = ttsByteArray;
   const writeFile = util.promisify(fs.writeFile);
-  return writeFile(`./gtts/${serverID}.wav`, audio.audioContent, 'binary');
+  return writeFile(`./gtts/${serverID}.mp3`, audio.audioContent, 'binary');
 };
 
 const writeTTSBinaryToWAVFile = (ttsByteArray: any, serverID: string, userId: string): Promise<any> => {
   makeGTTSFolderIfNotExist();
   const [audio] = ttsByteArray;
   const writeFile = util.promisify(fs.writeFile);
-  return writeFile(`./gtts/${serverID}-${userId}.wav`, audio.audioContent, 'binary');
+  return writeFile(`./gtts/${serverID}-${userId}.mp3`, audio.audioContent, 'binary');
 };
 
 const getLanguage = (msgContent: string) => {
@@ -38,7 +38,7 @@ const getLanguage = (msgContent: string) => {
 
 const getGender = (msgContent: string) => {
   const [prefix] = msgContent.split(' ');
-  const femalePrefix = ['gttsf', 'googlettsf'];
+  const femalePrefix = ['gttsf', 'googlettsf', 'ttsf'];
   const isFemale = femalePrefix.some((x) => `${AppConfig.commandPrefix}${x}` === prefix);
   return isFemale ? SsmlVoiceGender.FEMALE : SsmlVoiceGender.MALE;
 };
@@ -60,7 +60,7 @@ const generateTTS = (
     },
     audioConfig:
         {
-          audioEncoding: AudioEncoding.LINEAR16,
+          audioEncoding: AudioEncoding.MP3,
         },
   };
 
