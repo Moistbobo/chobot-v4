@@ -26,20 +26,24 @@
     "mongoose": "^5.9.14",
     "node-fetch": "^2.6.0",
     "nodemon": "^2.0.1",
-    "sodium": "^3.0.2"
+    "sodium": "^3.0.2",
+    "uuid": "^8.1.0",
+    "validator": "^13.0.0"
   },
   "devDependencies": {
+    "@types/cheerio": "^0.22.18",
+    "@types/moment": "^2.13.0",
+    "@types/mongoose": "^5.7.20",
     "@types/node": "^12.12.14",
+    "@types/node-fetch": "^2.5.7",
+    "@types/uuid": "^8.0.0",
+    "@types/validator": "^13.0.0",
+    "@types/ws": "^7.2.4",
     "@typescript-eslint/eslint-plugin": "^2.9.0",
     "@typescript-eslint/parser": "^2.9.0",
     "eslint": "^6.7.1",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
-    "typescript": "^3.7.2",
-    "@types/cheerio": "^0.22.18",
-    "@types/moment": "^2.13.0",
-    "@types/mongoose": "^5.7.20",
-    "@types/node-fetch": "^2.5.7",
-    "@types/ws": "^7.2.4"
+    "typescript": "^3.7.2"
   }
 }
