@@ -7,7 +7,8 @@ import Rep from './Rep';
 import RepHistory from './RepHistory';
 import Deathmath from './Deathmatch';
 import DeathmatchWins from './DeathmatchWins';
-import CreateAccolade from './CreateAccolade';
+import CreateAccolade from './Accolades/CreateAccolade';
+import ListAccolades from './Accolades/ListAccolades';
 
 export default [
   Gay,
@@ -20,4 +21,5 @@ export default [
   Deathmath,
   DeathmatchWins,
   CreateAccolade,
+  ListAccolades,
 ];
