@@ -3,7 +3,8 @@ import { Command } from '../../../models/Command';
 
 const Whois: Command = {
   name: 'Whois',
-  description: '',
+  description: 'Lookup a specific user on the server.',
+  usage: '.whois [username]',
   triggers: ['whois'],
   action,
 };

@@ -7,7 +7,9 @@ const GoogleTTS: Command = {
   check,
   name: 'GoogleTTS',
   triggers: ['gtts', 'googletts', 'gttsf', 'googlettsf'],
-  description: '',
+  description: 'Makes the bot join your voice channel and speak using Text to Speech.\n'
+      + 'For language list, refer to Google cloud TTS documentation.',
+  usage: '.gtts [language(optional)] [text to speak]\n.gtts ja-JP I will commit sudoku',
   requiresVoiceChannel: true,
   requiredPermissions: ['SEND_TTS_MESSAGES'],
 };

@@ -6,7 +6,8 @@ const Rep: Command = {
   action,
   name: 'Reputation',
   triggers: ['rep'],
-  description: '',
+  description: 'Check a user\'s reputation. Defaults to sender.',
+  usage: '.rep [username]\n.rep moistbobo\n.rep',
 };
 
 export default Rep;

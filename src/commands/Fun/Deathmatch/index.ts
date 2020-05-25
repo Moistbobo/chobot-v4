@@ -5,7 +5,8 @@ const Deathmath: Command = {
   action,
   name: 'Deathmatch',
   triggers: ['deathmath'],
-  description: '',
+  description: 'Start a deathmatch with another user. Does not work on self.',
+  usage: '.deathmatch [username]',
 };
 
 export default Deathmath;

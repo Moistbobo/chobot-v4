@@ -5,7 +5,8 @@ const CreateAccolade: Command = {
   action,
   name: 'Create Accolade',
   triggers: ['createaccolade'],
-  description: '',
+  description: 'Create a new accolade. 60 second timeout',
+  usage: '.createaccolade\n\nAnd then follow the instructions.',
   requiredPermissions: ['MANAGE_GUILD'],
 };
 

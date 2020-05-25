@@ -5,7 +5,8 @@ const ListAccolades: Command = {
   action,
   name: 'List Accolades',
   triggers: ['listaccolades', 'listacc'],
-  description: '',
+  description: 'List the available accoaldes on the server',
+  usage: '.listacc',
 };
 
 export default ListAccolades;

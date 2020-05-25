@@ -4,8 +4,9 @@ import { Command } from '../../../models/Command';
 const Racist: Command = {
   action,
   name: 'Racist',
-  description: '',
+  description: 'Check how racist a user is.',
   triggers: ['racist'],
+  usage: '.racist [username]\n.racist moistbobo\n.racist',
 };
 
 export default Racist;

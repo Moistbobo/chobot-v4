@@ -7,7 +7,8 @@ const PlusRep: Command = {
   check,
   name: '+Rep',
   triggers: ['+rep', 'plusrep', 'prep', 'rep+'],
-  description: '',
+  description: 'Give reputation to another user. Does not work for self.',
+  usage: '.+rep [username]',
 };
 
 export default PlusRep;

@@ -5,7 +5,7 @@ const Iq: Command = {
   action,
   name: 'Iq',
   triggers: ['iq'],
-  description: '',
+  description: 'Check a user\'s IQ.',
 };
 
 export default Iq;
