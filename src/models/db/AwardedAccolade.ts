@@ -6,6 +6,7 @@ export interface IAwardedAccolade extends Document{
     serverId: string,
     awardedById: string,
     awardedOn: string,
+    reason: string,
 }
 
 export const AwardedAccoladeSchema = new Schema({
@@ -25,7 +26,11 @@ export const AwardedAccoladeSchema = new Schema({
     required: true,
     type: String,
   },
-  awardedOn: String,
+  awardedOn: {
+    type: Date,
+    default: Date.now,
+  },
+  reason: String,
 });
 
 const AwardedAccolade = model<IAwardedAccolade>('AwardedAccolade', AwardedAccoladeSchema);

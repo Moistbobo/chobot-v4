@@ -10,6 +10,7 @@ import DeathmatchWins from './DeathmatchWins';
 import CreateAccolade from './Accolades/CreateAccolade';
 import ListAccolades from './Accolades/ListAccolades';
 import WhatIs from './WhatIs';
+import AwardAccolade from './Accolades/AwardAccolade';
 
 export default [
   Gay,
@@ -23,5 +24,6 @@ export default [
   DeathmatchWins,
   CreateAccolade,
   ListAccolades,
+  AwardAccolade,
   WhatIs,
 ];
