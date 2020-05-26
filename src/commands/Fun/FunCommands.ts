@@ -11,6 +11,8 @@ import CreateAccolade from './Accolades/CreateAccolade';
 import ListAccolades from './Accolades/ListAccolades';
 import WhatIs from './WhatIs';
 import AwardAccolade from './Accolades/AwardAccolade';
+import CheckAccolades from './Accolades/CheckAccolades';
+import DeleteAccolade from './Accolades/DeleteAccolade';
 
 export default [
   Gay,
@@ -25,5 +27,7 @@ export default [
   CreateAccolade,
   ListAccolades,
   AwardAccolade,
+  CheckAccolades,
+  DeleteAccolade,
   WhatIs,
 ];

@@ -7,6 +7,7 @@ export interface IAwardedAccolade extends Document{
     awardedById: string,
     awardedOn: string,
     reason: string,
+    isDeleted: boolean,
 }
 
 export const AwardedAccoladeSchema = new Schema({
@@ -29,6 +30,10 @@ export const AwardedAccoladeSchema = new Schema({
   awardedOn: {
     type: Date,
     default: Date.now,
+  },
+  isDeleted: {
+    type: Boolean,
+    default: false,
   },
   reason: String,
 });

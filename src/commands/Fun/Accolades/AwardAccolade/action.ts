@@ -8,11 +8,6 @@ import AwardedAccolade from '../../../../models/db/AwardedAccolade';
 import MentionUser from '../../../../helpers/MentionUser';
 import AppConfig from '../../../../AppConfig';
 
-const collectorEndReasons = {
-  ERROR: 'END_REASON/ERROR',
-  SUCCESS: 'END_REASON/SUCCESS',
-};
-
 const action = async (args: CommandArgs) => {
   const {
     msg, msg: {
@@ -39,7 +34,11 @@ const action = async (args: CommandArgs) => {
     return channel.send(Embed.createMessage('You can\'t give yourself an award', true));
   }
 
-  await channel.send(Embed.createMessage(`${MentionUser(author.id)}, enter a reason for the award. Or type \`cancel\`.`));
+  await channel.send(
+    Embed.createMessage(
+      `${MentionUser(author.id)}, enter a reason for the award. Or type \`cancel\`.`,
+    ),
+  );
 
   const filter = (m: Message) => m.author.id === author.id;
 
@@ -63,6 +62,7 @@ const action = async (args: CommandArgs) => {
       userId: mentionedUser.id,
       serverId: guild.id,
       awardedById: author.id,
+      reason,
     }).save();
 
     const embed = Embed.createEmbed({
