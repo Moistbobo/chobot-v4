@@ -7,6 +7,7 @@ const DeleteAccolade: Command = {
   triggers: ['removeaccolade'],
   description: 'Remove a user\'s accolade.',
   usage: '.removeaccolade [accolade id]',
+  requiredPermissions: ['MANAGE_GUILD'],
 };
 
 export default DeleteAccolade;

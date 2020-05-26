@@ -16,7 +16,7 @@ const action = async (args: CommandArgs) => {
   const extraFields = serverAccolades.map((a:IAccolade) => (
     {
       name: a.name,
-      value: a.description,
+      value: `${a.description.slice(0, 20).concat('...')}`,
       inline: true,
     }
   ));
@@ -25,6 +25,7 @@ const action = async (args: CommandArgs) => {
     title: `Accolades on ${guild.name}`,
     thumbnail: guild.iconURL() || undefined,
     extraFields,
+    footer: 'Type .whatis accolade [accolade name] for more information',
   });
 
   return channel.send(embed);

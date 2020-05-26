@@ -7,6 +7,7 @@ const AwardAccolade: Command = {
   triggers: ['awardaccolade'],
   description: 'Award an accolade to another user. Cannot award to self.',
   usage: '.awardaccolade [username] [accolade]\n.awardaccolade bob medal of chonor',
+  requiredPermissions: ['MANAGE_GUILD'],
 };
 
 export default AwardAccolade;
