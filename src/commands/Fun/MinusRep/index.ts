@@ -6,8 +6,9 @@ const MinusRep: Command = {
   action,
   check,
   name: '-Rep',
-  triggers: ['-rep', 'minusRep', 'mrep', 'nrep' , 'rep-'],
-  description: '',
+  triggers: ['-rep', 'minusRep', 'mrep', 'nrep', 'rep-'],
+  description: 'Take away rep from a user. Does not work on self.',
+  usage: '.-rep [username]',
 };
 
 export default MinusRep;

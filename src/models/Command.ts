@@ -7,6 +7,7 @@ export interface Command {
     action: (args:CommandArgs) => any| void;
     check?: (args: CommandArgs) => Promise<{pass:boolean, reason?:string}>;
     description?: string;
+    usage?: string;
 
     requiredPermissions?: Discord.PermissionString[],
     requiresVoiceChannel?: boolean,

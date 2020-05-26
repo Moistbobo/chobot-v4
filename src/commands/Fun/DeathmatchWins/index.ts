@@ -5,7 +5,8 @@ const DeathmatchWins: Command = {
   action,
   name: 'Deathmatch Wins',
   triggers: ['deathmatchwins', 'dmw'],
-  description: '',
+  description: 'Check the number of deathmatch wins of a user.',
+  usage: '.dmw [username]\n.dmw',
 };
 
 export default DeathmatchWins;
