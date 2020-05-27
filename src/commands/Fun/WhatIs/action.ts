@@ -25,7 +25,7 @@ const action = async (args: CommandArgs) => {
 
     const embed = Embed.createEmbed({
       title: accolade.name,
-      // thumbnail: guild.icon || undefined,
+      thumbnail: guild.iconURL() || undefined,
       extraFields:
         [
           {

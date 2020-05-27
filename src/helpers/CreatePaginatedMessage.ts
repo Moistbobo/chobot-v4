@@ -17,7 +17,9 @@ const CreatePaginatedMessage = async ({
   await message.react('⬅');
   await message.react('➡');
 
-  const filter = (reaction: any, user: any) => (reaction.emoji.name === '⬅' || reaction.emoji.name === '➡') && !user.bot;
+  const filter = (
+    reaction: any, user: any,
+  ) => (reaction.emoji.name === '⬅' || reaction.emoji.name === '➡') && !user.bot;
 
   const reactionCollector = message.createReactionCollector(filter, {
     time: timeout || 30000,

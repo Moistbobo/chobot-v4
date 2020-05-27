@@ -13,6 +13,7 @@ import WhatIs from './WhatIs';
 import AwardAccolade from './Accolades/AwardAccolade';
 import CheckAccolades from './Accolades/CheckAccolades';
 import DeleteAccolade from './Accolades/DeleteAccolade';
+import WhoHas from './Accolades/WhoHas';
 
 export default [
   Gay,
@@ -30,4 +31,5 @@ export default [
   CheckAccolades,
   DeleteAccolade,
   WhatIs,
+  WhoHas,
 ];
