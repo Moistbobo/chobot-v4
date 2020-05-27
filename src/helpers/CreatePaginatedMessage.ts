@@ -8,7 +8,7 @@ const CreatePaginatedMessage = async ({
   timeout,
 }: {
   message: Discord.Message;
-  onChange: (index: number) => void;
+  onChange: (index: number, paginationHelper: () => any) => void;
   resultsPerPage: number;
   maxLength: number;
   timeout?: number;
