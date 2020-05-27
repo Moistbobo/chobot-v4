@@ -8,7 +8,7 @@ const CreatePaginatedMessage = async ({
   timeout,
 }: {
   message: Discord.Message;
-  onChange: (index: number, paginationHelper: () => any) => void;
+  onChange: (index: number) => void;
   resultsPerPage: number;
   maxLength: number;
   timeout?: number;
@@ -17,7 +17,9 @@ const CreatePaginatedMessage = async ({
   await message.react('⬅');
   await message.react('➡');
 
-  const filter = (reaction: any, user: any) => (reaction.emoji.name === '⬅' || reaction.emoji.name === '➡') && !user.bot;
+  const filter = (
+    reaction: any, user: any,
+  ) => (reaction.emoji.name === '⬅' || reaction.emoji.name === '➡') && !user.bot;
 
   const reactionCollector = message.createReactionCollector(filter, {
     time: timeout || 30000,

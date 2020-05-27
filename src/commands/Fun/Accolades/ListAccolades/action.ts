@@ -2,6 +2,7 @@ import { CommandArgs } from '../../../../models/CommandArgs';
 import Accolade, { IAccolade } from '../../../../models/db/AccoladeType';
 import Embed from '../../../../helpers/Embed';
 import CreatePaginatedMessage from '../../../../helpers/CreatePaginatedMessage';
+import MapAccoladeType from '../../../../helpers/MapAccoladeType';
 
 const action = async (args: CommandArgs) => {
   const { msg: { guild, channel } } = args;
@@ -18,7 +19,7 @@ const action = async (args: CommandArgs) => {
 
   const extraFields = serverAccolades.map((a:IAccolade) => (
     {
-      name: a.name,
+      name: `${MapAccoladeType(a.type)} ${a.name}`,
       value: `${a.description}`,
     }
   )) as [];
