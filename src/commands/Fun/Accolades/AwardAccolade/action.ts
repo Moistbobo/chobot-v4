@@ -53,8 +53,8 @@ const action = async (args: CommandArgs) => {
     const reason = m.content;
 
     if (reason.toLowerCase() === 'cancel') {
-      channel.send(Embed.createMessage('Accolade award cancelled'));
-      return;
+      messageCollector.stop('Cancelled');
+      return channel.send(Embed.createMessage('Accolade award cancelled'));
     }
 
     new AwardedAccolade({
