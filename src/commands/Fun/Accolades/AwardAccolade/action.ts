@@ -69,7 +69,7 @@ const action = async (args: CommandArgs) => {
       title: 'Award Ceremony',
       thumbnail: mentionedUser.user.avatarURL() || mentionedUser.user.defaultAvatarURL,
       // eslint-disable-next-line max-len
-      contents: `On the date ${moment().format('LL')}\n\nI hereby bestow the ${accoladeToAward.name} to the brave Chovy Seal, ${MentionUser(mentionedUser.id)} for ${reason}`,
+      contents: `On the date ${moment().format('LL')}\n\nI, ${MentionUser(author.id)}, hereby bestow the ${accoladeToAward.name} to the brave ${MentionUser(mentionedUser.id)} for ${reason}`,
       image: accoladeToAward.image,
       footer: `Type ${AppConfig.commandPrefix}accolades to check your accolades.`,
     });
