@@ -14,6 +14,7 @@ import AwardAccolade from './Accolades/AwardAccolade';
 import CheckAccolades from './Accolades/CheckAccolades';
 import DeleteAccolade from './Accolades/DeleteAccolade';
 import WhoHas from './Accolades/WhoHas';
+import DeathmatchLeaderboard from './DeathmatchLeaderboard';
 
 export default [
   Gay,
@@ -32,4 +33,5 @@ export default [
   DeleteAccolade,
   WhatIs,
   WhoHas,
+  DeathmatchLeaderboard,
 ];
