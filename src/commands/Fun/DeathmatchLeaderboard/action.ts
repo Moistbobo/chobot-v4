@@ -10,7 +10,7 @@ const action = async (args: CommandArgs) => {
 
   const top10Wins = await FunResult.find({}).sort({ deathmatchWins: -1 });
 
-  const membersInServerLeaderboard = top10Wins.filter((x) => guild.member(x.userID));
+  const membersInServerLeaderboard = top10Wins.filter((x) => guild.members.fetch(x.userID));
   membersInServerLeaderboard.length = 10;
 
   const embed = Embed.createEmbed({
