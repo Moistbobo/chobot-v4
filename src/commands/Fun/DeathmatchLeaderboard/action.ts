@@ -8,13 +8,14 @@ const action = async (args: CommandArgs) => {
 
   if (!guild || !member) return;
 
-  const top10Wins = await FunResult.find({}).sort({ deathmatchWins: -1 }).limit(10);
+  const top10Wins = await FunResult.find({}).sort({ deathmatchWins: -1 });
 
-  console.log(top10Wins);
+  const membersInServerLeaderboard = top10Wins.filter((x) => guild.member(x.userID));
+  membersInServerLeaderboard.length = 10;
 
   const embed = Embed.createEmbed({
     title: 'Top 10 Deathmatch wins',
-    extraFields: top10Wins.map((x, index) => ({
+    extraFields: membersInServerLeaderboard.map((x, index) => ({
       name: `Rank ${index + 1}`,
       value: `${MentionUser(x.userID)}\nWins: ${x.deathmatchWins}`,
     })),
