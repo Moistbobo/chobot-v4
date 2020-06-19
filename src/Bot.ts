@@ -63,10 +63,10 @@ const runBot = (token: string|undefined) => {
             .map((x: string) => MentionChannel(x)).join(', ')}`,
         ));
 
-        return Promise.all([
-          errorMessage.delete({ timeout: 5000 }),
-          msg.delete({ timeout: 5000 }),
-        ]);
+        // return Promise.all([
+        //   errorMessage.delete({ timeout: 5000 }),
+        //   msg.delete({ timeout: 5000 }),
+        // ]);
       }
 
       if (commandToRun.check) {
