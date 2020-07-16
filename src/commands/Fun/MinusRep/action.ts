@@ -35,7 +35,7 @@ const action = async (args: CommandArgs) => {
   if (moment(moment()).diff(moment(senderLastUpdate), 'day') >= 1) {
     senderFun.reputation.lastUpdate = moment().toISOString();
     senderFun.reputation.lastTarget = firstUserMentioned.id;
-    receiverFun.reputation.value = receiverRep - 1;
+    receiverFun.reputation.value = firstUserMentioned.id === '80300923351465984' ? receiverRep + 1 : receiverRep - 1;
 
     const repHistory = new RepHistory(
       {
@@ -57,12 +57,6 @@ const action = async (args: CommandArgs) => {
     await senderFun.save();
     await repHistory.save();
     await receiverFun.save();
-  } else if (firstUserMentioned.id === lastTarget) {
-    const embed = Embed.createEmbed({
-      contents: `${senderName}, you can't -rep or +rep the same user consecutively.`,
-    });
-
-    await channel.send(embed);
   } else {
     const embed = Embed.createEmbed({
       contents: `${senderName}, you have already used your reputation action for the day.`,

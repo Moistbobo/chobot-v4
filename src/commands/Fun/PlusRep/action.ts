@@ -62,12 +62,6 @@ const action = async (args: CommandArgs) => {
     await senderFun.save();
     await receiverFun.save();
     await repHistory.save();
-  } else if (firstUserMentioned.id === lastTarget) {
-    const embed = Embed.createEmbed({
-      contents: `${senderName}, you can't -rep or +rep the same user consecutively.`,
-    });
-
-    await channel.send(embed);
   } else {
     const embed = Embed.createEmbed({
       contents: `${senderName}, you have already used your reputation action for the day.`,
