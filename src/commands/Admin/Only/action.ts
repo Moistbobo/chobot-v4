@@ -48,7 +48,7 @@ const action = async (args: CommandArgs) => {
     await serverConfig.save();
 
     return channel.send(
-      Embed.createMessage(`Removed ${commandName} usage from ${MentionChannel(_channel.id)} only.`),
+      Embed.createMessage(`${commandName} will now work on all channels.`),
     );
   }
 
@@ -64,7 +64,7 @@ const action = async (args: CommandArgs) => {
   serverConfig.commandRules.set(commandName, newAllowedChannels);
   await serverConfig.save();
 
-  return channel.send(Embed.createMessage(`Added ${commandName} for ${MentionChannel(_channel.id)} only.`));
+  return channel.send(Embed.createMessage(`${commandName} will now only work for ${MentionChannel(_channel.id)}.`));
 };
 
 export default action;
