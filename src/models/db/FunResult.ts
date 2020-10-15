@@ -14,6 +14,7 @@ export interface IFunResult extends Document {
     reputation: {
         value: number;
         lastUpdate: string;
+        lastTarget: string;
     }
     deathmatchWins: number;
 }
@@ -57,6 +58,10 @@ export const FunResultSchema = new Schema({
     lastUpdate: {
       type: String,
       default: '1970-01-01T00:00:00Z',
+    },
+    lastTarget: {
+      type: String,
+      default: '',
     },
   },
   deathmatchWins: {
