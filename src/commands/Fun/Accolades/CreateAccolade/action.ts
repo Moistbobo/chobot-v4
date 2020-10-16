@@ -2,10 +2,10 @@ import { Message } from 'discord.js';
 import moment from 'moment';
 import validator from 'validator';
 import { v4 as uuidv4 } from 'uuid';
-import { CommandArgs } from '../../../../models/CommandArgs';
+import { CommandArgs } from '../../../../types/CommandArgs';
 import Embed from '../../../../helpers/Embed';
 import MentionUser from '../../../../helpers/MentionUser';
-import Accolade from '../../../../models/db/AccoladeType';
+import Accolade from '../../../../types/db/AccoladeType';
 
 const collectorEndReasons = {
   ERROR: 'END_REASON/ERROR',

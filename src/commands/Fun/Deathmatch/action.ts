@@ -1,9 +1,9 @@
-import { CommandArgs } from '../../../models/CommandArgs';
+import { CommandArgs } from '../../../types/CommandArgs';
 import FindMemberInServer from '../../../helpers/FindMemberInServer';
 import Embed from '../../../helpers/Embed';
 import sleep from '../../../helpers/Sleep';
 import MentionUser from '../../../helpers/MentionUser';
-import FunResult from '../../../models/db/FunResult';
+import FunResult from '../../../types/db/FunResult';
 
 const action = async (args: CommandArgs) => {
   const {

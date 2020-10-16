@@ -1,7 +1,7 @@
 import moment from 'moment';
-import { CommandArgs } from '../../../models/CommandArgs';
+import { CommandArgs } from '../../../types/CommandArgs';
 import FindMemberInServer from '../../../helpers/FindMemberInServer';
-import FunResult from '../../../models/db/FunResult';
+import FunResult from '../../../types/db/FunResult';
 import Embed from '../../../helpers/Embed';
 
 const action = async (args: CommandArgs) => {

@@ -1,4 +1,4 @@
-import { CommandArgs } from '../../../models/CommandArgs';
+import { CommandArgs } from '../../../types/CommandArgs';
 import Tools from './Tools';
 import Embed from '../../../helpers/Embed';
 import Commands from '../..';

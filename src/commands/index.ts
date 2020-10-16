@@ -3,6 +3,7 @@ import MiscCommands from './Misc/MiscCommands';
 import FunCommands from './Fun/FunCommands';
 import TTSCommands from './TTS/TTSCommands';
 import AdminCommands from './Admin/AdminCommands';
+import GenshinImpactCommands from './GenshinImpact/GenshinImpactCommands';
 
 export default [
   ...BDO,
@@ -10,4 +11,5 @@ export default [
   ...FunCommands,
   ...TTSCommands,
   ...AdminCommands,
+  ...GenshinImpactCommands,
 ];

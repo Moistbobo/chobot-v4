@@ -1,5 +1,5 @@
 import * as Discord from 'discord.js';
-import { EmbedArgs } from '../models/EmbedArgs';
+import { EmbedArgs } from '../types/EmbedArgs';
 
 const createEmbed = (args: EmbedArgs, error = false) => {
   const {

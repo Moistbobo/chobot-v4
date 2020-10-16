@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { IRepHistory } from '../../../models/db/RepHistory';
+import { IRepHistory } from '../../../types/db/RepHistory';
 import MentionUser from '../../../helpers/MentionUser';
 
 const renderHistoryItem = (repHistory: IRepHistory[]) => repHistory.map(

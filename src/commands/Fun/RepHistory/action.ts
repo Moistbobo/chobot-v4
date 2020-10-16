@@ -1,7 +1,7 @@
 import Discord from 'discord.js';
-import { CommandArgs } from '../../../models/CommandArgs';
+import { CommandArgs } from '../../../types/CommandArgs';
 import FindMemberInServer from '../../../helpers/FindMemberInServer';
-import { RepHistory } from '../../../models/db/RepHistory';
+import { RepHistory } from '../../../types/db/RepHistory';
 import Embed from '../../../helpers/Embed';
 import MentionUser from '../../../helpers/MentionUser';
 import Tools from './Tools';

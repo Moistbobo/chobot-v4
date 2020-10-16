@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import cheerio from 'cheerio';
 import parser from 'fast-xml-parser';
-import { CommandArgs } from '../../../models/CommandArgs';
+import { CommandArgs } from '../../../types/CommandArgs';
 import Embed from '../../../helpers/Embed';
 
 const rssFeedUrl = 'https://community.blackdesertonline.com/index.php?forums/patch-notes.5/index.rss';

@@ -1,6 +1,6 @@
 import action from './action';
 import check from './check';
-import { Command } from '../../../models/Command';
+import { Command } from '../../../types/Command';
 
 const PlusRep: Command = {
   action,

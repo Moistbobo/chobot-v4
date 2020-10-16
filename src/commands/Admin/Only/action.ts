@@ -1,8 +1,8 @@
 import { TextChannel } from 'discord.js';
-import { CommandArgs } from '../../../models/CommandArgs';
-import { ServerConfig } from '../../../models/db/ServerConfig';
+import { CommandArgs } from '../../../types/CommandArgs';
+import { ServerConfig } from '../../../types/db/ServerConfig';
 import Commands from '../../index';
-import { Command } from '../../../models/Command';
+import { Command } from '../../../types/Command';
 import Embed from '../../../helpers/Embed';
 import MentionChannel from '../../../helpers/MentionChannel';
 
