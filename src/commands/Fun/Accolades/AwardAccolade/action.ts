@@ -1,10 +1,10 @@
 import { Message } from 'discord.js';
 import moment from 'moment';
-import { CommandArgs } from '../../../../models/CommandArgs';
+import { CommandArgs } from '../../../../types/CommandArgs';
 import FindMemberInServer from '../../../../helpers/FindMemberInServer';
-import Accolade from '../../../../models/db/AccoladeType';
+import Accolade from '../../../../types/db/AccoladeType';
 import Embed from '../../../../helpers/Embed';
-import AwardedAccolade from '../../../../models/db/AwardedAccolade';
+import AwardedAccolade from '../../../../types/db/AwardedAccolade';
 import MentionUser from '../../../../helpers/MentionUser';
 import AppConfig from '../../../../AppConfig';
 

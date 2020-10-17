@@ -1,4 +1,4 @@
-import { Command } from '../../../../models/Command';
+import { Command } from '../../../../types/Command';
 import action from './action';
 
 const ListAccolades: Command = {

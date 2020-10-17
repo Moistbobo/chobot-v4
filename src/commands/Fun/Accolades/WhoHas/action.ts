@@ -1,7 +1,7 @@
-import { CommandArgs } from '../../../../models/CommandArgs';
-import Accolade from '../../../../models/db/AccoladeType';
+import { CommandArgs } from '../../../../types/CommandArgs';
+import Accolade from '../../../../types/db/AccoladeType';
 import Embed from '../../../../helpers/Embed';
-import AwardedAccolade from '../../../../models/db/AwardedAccolade';
+import AwardedAccolade from '../../../../types/db/AwardedAccolade';
 import MentionUser from '../../../../helpers/MentionUser';
 
 const action = async (args: CommandArgs) => {

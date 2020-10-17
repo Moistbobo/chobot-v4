@@ -1,4 +1,4 @@
-import { CommandArgs } from '../../../models/CommandArgs';
+import { CommandArgs } from '../../../types/CommandArgs';
 
 const action = (args: CommandArgs) => {
   const { msg, msg: { channel } } = args;

@@ -1,6 +1,6 @@
 import moment from 'moment';
 import Tools from './tools';
-import { CommandArgs } from '../../../models/CommandArgs';
+import { CommandArgs } from '../../../types/CommandArgs';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 

@@ -1,4 +1,4 @@
-import { ServerConfig } from '../../models/db/ServerConfig';
+import { ServerConfig } from '../../types/db/ServerConfig';
 
 const isTTSChannel = async (channelId: string, serverId: string) => {
   const serverConfig = await ServerConfig.findOne({ serverId }) || new ServerConfig({ serverId });

@@ -1,4 +1,4 @@
-import { CommandArgs } from '../../../models/CommandArgs';
+import { CommandArgs } from '../../../types/CommandArgs';
 import Embed from '../../../helpers/Embed';
 
 const action = (args: CommandArgs) => {

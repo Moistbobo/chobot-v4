@@ -1,5 +1,5 @@
-import { CommandArgs } from '../../../../models/CommandArgs';
-import Accolade, { IAccolade } from '../../../../models/db/AccoladeType';
+import { CommandArgs } from '../../../../types/CommandArgs';
+import Accolade, { IAccolade } from '../../../../types/db/AccoladeType';
 import Embed from '../../../../helpers/Embed';
 import CreatePaginatedMessage from '../../../../helpers/CreatePaginatedMessage';
 import MapAccoladeType from '../../../../helpers/MapAccoladeType';

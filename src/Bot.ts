@@ -1,12 +1,12 @@
 import Discord from 'discord.js';
 import Commands from './commands';
-import { CommandArgs } from './models/CommandArgs';
-import { Command } from './models/Command';
+import { CommandArgs } from './types/CommandArgs';
+import { Command } from './types/Command';
 import AppConfig from './AppConfig';
 import Db from './services/db/Db';
 import Embed from './helpers/Embed';
-import { BotVoiceConnection } from './models/BotVoiceConnection';
-import { ServerConfig } from './models/db/ServerConfig';
+import { BotVoiceConnection } from './types/BotVoiceConnection';
+import { ServerConfig } from './types/db/ServerConfig';
 import MentionChannel from './helpers/MentionChannel';
 
 const runBot = (token: string|undefined) => {

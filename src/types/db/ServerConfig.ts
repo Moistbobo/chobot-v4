@@ -6,6 +6,7 @@ export interface IServerConfig extends Document{
     serverId: string,
     ttsChannelId: string | null,
     commandRules: any,
+    cooldowns: any,
 }
 
 export const ServerConfigSchema = new Schema({
@@ -22,6 +23,11 @@ export const ServerConfigSchema = new Schema({
     default: {
       test: ['1'],
     },
+  },
+  cooldowns: {
+    type: Map,
+    of: [String],
+    default: {},
   },
 });
 

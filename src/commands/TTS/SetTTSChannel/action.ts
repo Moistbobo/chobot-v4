@@ -1,6 +1,6 @@
 import { TextChannel } from 'discord.js';
-import { CommandArgs } from '../../../models/CommandArgs';
-import { ServerConfig } from '../../../models/db/ServerConfig';
+import { CommandArgs } from '../../../types/CommandArgs';
+import { ServerConfig } from '../../../types/db/ServerConfig';
 import Embed from '../../../helpers/Embed';
 
 const action = async (args: CommandArgs) => {

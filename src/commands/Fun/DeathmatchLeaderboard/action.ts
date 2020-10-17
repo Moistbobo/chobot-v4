@@ -1,5 +1,5 @@
-import { CommandArgs } from '../../../models/CommandArgs';
-import FunResult from '../../../models/db/FunResult';
+import { CommandArgs } from '../../../types/CommandArgs';
+import FunResult from '../../../types/db/FunResult';
 import Embed from '../../../helpers/Embed';
 import MentionUser from '../../../helpers/MentionUser';
 

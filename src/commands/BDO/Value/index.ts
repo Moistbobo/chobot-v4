@@ -1,5 +1,5 @@
 import action from './action';
-import { Command } from '../../../models/Command';
+import { Command } from '../../../types/Command';
 
 const Value: Command = {
   name: 'Value',
