@@ -1,10 +1,10 @@
 import { Document, Schema, model } from 'mongoose';
 
 export interface IGenshinGachaItem extends Document {
-	type: string,
-	image: string
-	name: string
-	rarity: number
+	type: string;
+	image: string;
+	name: string;
+	rarity: number;
 }
 
 export const GenshinGachaItemSchema = new Schema({

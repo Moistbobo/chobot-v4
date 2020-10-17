@@ -1,17 +1,22 @@
 import Jimp from 'jimp';
 import Discord from 'discord.js';
+import _ from 'lodash';
 import { CommandArgs } from '../../../types/CommandArgs';
 import { GenshinGachaItem } from '../../../types/db/GenshinGachaItem';
 import Embed from '../../../helpers/Embed';
+import { GenshinUser } from '../../../types/db/GenshinUser';
 
 const getRandomItemFromCollection = (collection: any[]) => {
   const randNum = Math.floor(Math.random() * collection.length);
-  console.log(randNum);
   return collection[randNum];
 };
 
 const action = async (args: CommandArgs) => {
-  const { msg: { channel, author, id: authorId } } = args;
+  const { msg: { channel, author: { id: authorId }, id: messageId } } = args;
+
+  const genshinUser = await GenshinUser.findOne({ userId: authorId }) || new GenshinUser({
+    userId: authorId,
+  });
 
   const gachaItems = await GenshinGachaItem.find();
   const SSRCharacters = gachaItems.filter((x) => x.rarity === 5);
@@ -20,12 +25,28 @@ const action = async (args: CommandArgs) => {
 
   // Generate the rolled image
   let img = new Jimp(640, 256, '#C0C0C0');
-  const genericRItem = new Jimp(128, 128, '#000');
   // build results of 10 rolls
 
   const rolls = new Array(10).fill(0).map(() => Math.random()).map((result, index) => {
+    const pityRolls = _.get(genshinUser, genshinUser.bannerPity.get('standard'));
+    genshinUser.totalRolls += 1;
+    if (!pityRolls) {
+      genshinUser.bannerPity.standard = 1;
+      genshinUser.bannerPity.set('standard', 1);
+    } else {
+      genshinUser.bannerPity.set('standard', pityRolls + 1);
+    }
+
+    if (genshinUser.bannerPity.standard === 90) {
+      genshinUser.bannerPity.standard = 0;
+      return getRandomItemFromCollection(SSRCharacters);
+    }
+
     if (index === 9) {
-      if (result <= 0.006) return getRandomItemFromCollection(SSRCharacters);
+      if (result <= 0.006) {
+        genshinUser.bannerPity.standard = 0;
+        return getRandomItemFromCollection(SSRCharacters);
+      }
       return getRandomItemFromCollection(SRCharacters);
     }
     if (result <= 0.006) return getRandomItemFromCollection(SSRCharacters);
@@ -53,6 +74,15 @@ const action = async (args: CommandArgs) => {
   const itemsWithRarity = [
     ...loadedImages.map(
       (x, index) => {
+        const rolledItemId = rolls[index].id;
+        const rolledItemCount = genshinUser.rollHistory.get(rolledItemId) || 0;
+
+        genshinUser.rollHistory.set(
+          rolledItemId, rolledItemCount + 1,
+        );
+
+        console.log(genshinUser.rollHistory);
+
         const rareImage = mapRarityImage(rolls[index].rarity);
         x.resize(108, 108);
         return x.composite(
@@ -83,6 +113,8 @@ const action = async (args: CommandArgs) => {
     image: `attachment://ggroll-${authorId}.png`,
     file: attachment,
   });
+
+  await genshinUser.save();
 
   await channel.send({
     embed,
