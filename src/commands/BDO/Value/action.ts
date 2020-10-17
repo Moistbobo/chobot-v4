@@ -1,4 +1,4 @@
-import { CommandArgs } from '../../../models/CommandArgs';
+import { CommandArgs } from '../../../types/CommandArgs';
 import Embed from '../../../helpers/Embed';
 
 import tools from './tools';
@@ -38,7 +38,9 @@ const action = (args: CommandArgs) => {
 
   const baseSellPrice = sellingPrice * 0.65;
   const valuePackPrice = baseSellPrice * 1.30;
-  const fameBonus = baseSellPrice * (parseFloat(fame) || 0);
+
+  const fameMult = tools.fameMap[parseInt(fame, 10)];
+  const fameBonus = baseSellPrice * (fameMult || 0);
 
   const finalSellingPrice = valuePackPrice + fameBonus;
 
@@ -54,7 +56,7 @@ const action = (args: CommandArgs) => {
     ? `${formattedPrice(finalSellingPrice, needHumanReadable)}with value pack and fame bonus`
     : `${formattedPrice(valuePackPrice, needHumanReadable)}with value pack`}
     
-      ${fameBonus !== 0 ? `With a fame bonus of ${formattedPrice(fameBonus, needHumanReadable)}\`(${fame}%)\``
+    ${fameBonus !== 0 ? `With a fame bonus of ${formattedPrice(fameBonus, needHumanReadable)} \`(${fameMult * 100}%)\``
     : 'Not including fame bonus.'}`,
     }),
   );

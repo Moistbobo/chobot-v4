@@ -35,5 +35,6 @@ module.exports = {
     "max-len" : ["error", {code: 120, ignoreComments: true}],
     camelcase: 0,
     "import/extensions": 0,
+    "no-await-in-loop" : 0,
   },
 };

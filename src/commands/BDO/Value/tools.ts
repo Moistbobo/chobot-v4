@@ -36,7 +36,14 @@ const formattedPrice = (value: number, needHumanReadable: boolean) => {
   const humanReadable = needHumanReadable
     ? wrapInputWithFormatting(toHumanReadable(value))
     : '';
-  return `\`${value}\`${humanReadable}`;
+  return `\`${formatNumber(value)}\`${humanReadable}`;
+};
+
+const fameMap:{ [index:number]: number,
+} = {
+  1: 0.005,
+  2: 0.01,
+  3: 0.015,
 };
 
 export default {
@@ -46,4 +53,5 @@ export default {
   toMachineReadable,
   startsWithNumber,
   formattedPrice,
+  fameMap,
 };
