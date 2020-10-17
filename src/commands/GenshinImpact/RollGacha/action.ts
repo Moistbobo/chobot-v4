@@ -27,17 +27,20 @@ const action = async (args: CommandArgs) => {
   let img = new Jimp(640, 256, '#C0C0C0');
   // build results of 10 rolls
 
+  let obtainedPity = false;
+
   const rolls = new Array(10).fill(0).map(() => Math.random()).map((result, index) => {
-    const pityRolls = _.get(genshinUser, genshinUser.bannerPity.get('standard'));
+    const pityRolls = genshinUser.bannerPity.get('standard');
     genshinUser.totalRolls += 1;
     if (!pityRolls) {
-      genshinUser.bannerPity.standard = 1;
+      genshinUser.totalPity += 1;
       genshinUser.bannerPity.set('standard', 1);
     } else {
       genshinUser.bannerPity.set('standard', pityRolls + 1);
     }
 
     if (genshinUser.bannerPity.standard === 90) {
+      obtainedPity = true;
       genshinUser.bannerPity.standard = 0;
       return getRandomItemFromCollection(SSRCharacters);
     }
@@ -66,8 +69,16 @@ const action = async (args: CommandArgs) => {
   const SSRImage = await Jimp.read('https://i.imgur.com/ha9PzbY.png');
 
   const mapRarityImage = (rarity: number): Jimp => {
-    if (rarity === 5) return SSRImage;
-    if (rarity === 4) return SRImage;
+    if (rarity === 5) {
+      genshinUser.SSRObtained += 1;
+      return SSRImage;
+    }
+    if (rarity === 4) {
+      genshinUser.SRObtained += 1;
+      return SRImage;
+    }
+
+    genshinUser.RObtained += 1;
     return RImage;
   };
 
@@ -80,8 +91,6 @@ const action = async (args: CommandArgs) => {
         genshinUser.rollHistory.set(
           rolledItemId, rolledItemCount + 1,
         );
-
-        console.log(genshinUser.rollHistory);
 
         const rareImage = mapRarityImage(rolls[index].rarity);
         x.resize(108, 108);
@@ -109,7 +118,7 @@ const action = async (args: CommandArgs) => {
   const attachment = new Discord.MessageAttachment(`./ggrolls/${authorId}.png`, `ggroll-${authorId}.png`);
 
   const embed = Embed.createEmbed({
-    contents: 'test',
+    contents: obtainedPity ? 'Reached pity threshold (90)' : '',
     image: `attachment://ggroll-${authorId}.png`,
     file: attachment,
   });

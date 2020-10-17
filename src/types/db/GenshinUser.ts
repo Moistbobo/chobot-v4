@@ -3,8 +3,12 @@ import { Document, Schema, model } from 'mongoose';
 export interface IGenshinUser extends Document{
 	userId: string;
 	totalRolls: number;
+	totalPity: number;
 	rollHistory: any;
 	bannerPity: any;
+	SSRObtained: number;
+	SRObtained: number;
+	RObtained: number;
 }
 
 export const GenshinUserSchema = new Schema({
@@ -26,6 +30,22 @@ export const GenshinUserSchema = new Schema({
   	type: Map,
 	  of: Number,
 	  default: {},
+  },
+  totalPity: {
+  	type: Number,
+    default: 0,
+  },
+  SSRObtained: {
+  	type: Number,
+    default: 0,
+  },
+  SRObtained: {
+    type: Number,
+    default: 0,
+  },
+  RObtained: {
+    type: Number,
+    default: 0,
   },
 });
 
