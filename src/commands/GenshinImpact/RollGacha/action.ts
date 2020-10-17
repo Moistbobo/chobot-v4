@@ -47,7 +47,7 @@ const action = async (args: CommandArgs) => {
 
     if (index === 9) {
       if (result <= 0.006) {
-        genshinUser.bannerPity.standard = 0;
+        genshinUser.bannerPity.set('standard', 0);
         return getRandomItemFromCollection(SSRCharacters);
       }
       return getRandomItemFromCollection(SRCharacters);
