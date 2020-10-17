@@ -39,7 +39,7 @@ const action = async (args: CommandArgs) => {
       genshinUser.bannerPity.set('standard', pityRolls + 1);
     }
 
-    if (pityRolls >= 90) {
+    if (pityRolls + 1 >= 90) {
       obtainedPity = true;
       genshinUser.bannerPity.set('standard', 0);
       return getRandomItemFromCollection(SSRCharacters);
