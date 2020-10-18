@@ -3,8 +3,13 @@ import { Document, Schema, model } from 'mongoose';
 export interface IGenshinGachaBanner extends Document {
 	type: string;
 	name: string;
-	featuredItems: string[]; // string of id's
-	regularItems: string[];
+	name_lower: string;
+	date: string;
+	description: string;
+	bannerImg: string;
+	featuredItems: string[]; // string[] of id's
+	excludedItems: string[];
+	SSRPityThreshold: number;
 }
 
 export const GenshinGachaBannerSchema = new Schema({
@@ -16,14 +21,28 @@ export const GenshinGachaBannerSchema = new Schema({
     type: String,
     required: true,
   },
+  name_lower: {
+  	type: String,
+    required: true,
+  },
+  date: {
+  	type: String,
+    required: true,
+  },
+  description: String,
   featuredItems: {
   	type: [String],
     required: true,
   },
-  regularItems: {
+  excludedItems: {
   	type: [String],
-    required: true,
+	  default: [],
   },
+  SSRPityThreshold: {
+  	type: Number,
+    default: 90,
+  },
+  bannerImg: String,
 });
 
 export const GenshinGachaBanner = model<IGenshinGachaBanner>('GenshinGachaBanner', GenshinGachaBannerSchema);

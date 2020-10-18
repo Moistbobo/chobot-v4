@@ -6,6 +6,7 @@ export interface IGenshinUser extends Document{
 	totalPity: number;
 	rollHistory: any;
 	bannerPity: any;
+	bannerSSRObtained: any;
 	SSRObtained: number;
 	SRObtained: number;
 	RObtained: number;
@@ -30,6 +31,11 @@ export const GenshinUserSchema = new Schema({
   	type: Map,
 	  of: Number,
 	  default: {},
+  },
+  bannerSSRObtained: {
+  	type: Map,
+    of: Number, // 1 = first pity 2 = second pity
+    default: {},
   },
   totalPity: {
   	type: Number,

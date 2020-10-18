@@ -5,6 +5,7 @@ export interface IGenshinGachaItem extends Document {
 	image: string;
 	name: string;
 	rarity: number;
+	bannerExclusive: boolean;
 }
 
 export const GenshinGachaItemSchema = new Schema({
@@ -23,6 +24,10 @@ export const GenshinGachaItemSchema = new Schema({
   rarity: {
     type: Number,
     required: true,
+  },
+  bannerExclusive: {
+  	type: Boolean,
+    default: false,
   },
 });
 
