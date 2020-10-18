@@ -39,11 +39,11 @@ const action = async (args: CommandArgs) => {
   // eslint-disable-next-line no-underscore-dangle
   const _channel = channel as TextChannel;
 
-  const allowedChannels: string[] = serverConfig.commandRules.get(commandName);
+  const allowedChannels: string[] = serverConfig.commandRules.get(matchedCommand.name.toLowerCase());
 
   if (allowedChannels && allowedChannels.includes(_channel.id)) {
     const newAllowedChannels = allowedChannels.filter((x) => x !== _channel.id);
-    serverConfig.commandRules.set(commandName, newAllowedChannels);
+    serverConfig.commandRules.set(matchedCommand.name.toLowerCase(), newAllowedChannels);
 
     await serverConfig.save();
 
@@ -61,7 +61,7 @@ const action = async (args: CommandArgs) => {
     ];
   }
 
-  serverConfig.commandRules.set(commandName, newAllowedChannels);
+  serverConfig.commandRules.set(matchedCommand.name.toLowerCase(), newAllowedChannels);
   await serverConfig.save();
 
   return channel.send(Embed.createMessage(`${commandName} will now only work for ${MentionChannel(_channel.id)}.`));
