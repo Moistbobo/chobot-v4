@@ -18,7 +18,7 @@ const action = async (args: CommandArgs) => {
     userId: authorId,
   });
 
-  const gachaItems = await GenshinGachaItem.find();
+  const gachaItems = await GenshinGachaItem.find({ bannerExclusive: undefined });
   const SSRCharacters = gachaItems.filter((x) => x.rarity === 5);
   const SRCharacters = gachaItems.filter((x) => x.rarity === 4);
   const RItems = gachaItems.filter((x) => x.rarity === 3);
@@ -52,7 +52,10 @@ const action = async (args: CommandArgs) => {
       }
       return getRandomItemFromCollection(SRCharacters);
     }
-    if (result <= 0.006) return getRandomItemFromCollection(SSRCharacters);
+    if (result <= 0.006) {
+      genshinUser.bannerPity.set('standard', 0);
+      return getRandomItemFromCollection(SSRCharacters);
+    }
     if (result > 0.006 && result < 0.051) return getRandomItemFromCollection(SRCharacters);
     return getRandomItemFromCollection(RItems);
   });
