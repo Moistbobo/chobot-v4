@@ -18,7 +18,7 @@ const action = async (args: CommandArgs) => {
     userId: authorId,
   });
 
-  const gachaItems = await GenshinGachaItem.find();
+  const gachaItems = await GenshinGachaItem.find({ bannerExclusive: undefined });
   const SSRCharacters = gachaItems.filter((x) => x.rarity === 5);
   const SRCharacters = gachaItems.filter((x) => x.rarity === 4);
   const RItems = gachaItems.filter((x) => x.rarity === 3);
