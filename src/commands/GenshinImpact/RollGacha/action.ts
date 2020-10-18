@@ -52,7 +52,10 @@ const action = async (args: CommandArgs) => {
       }
       return getRandomItemFromCollection(SRCharacters);
     }
-    if (result <= 0.006) return getRandomItemFromCollection(SSRCharacters);
+    if (result <= 0.006) {
+      genshinUser.bannerPity.set('standard', 0);
+      return getRandomItemFromCollection(SSRCharacters);
+    }
     if (result > 0.006 && result < 0.051) return getRandomItemFromCollection(SRCharacters);
     return getRandomItemFromCollection(RItems);
   });
