@@ -42,6 +42,7 @@ export const GenshinGachaBannerSchema = new Schema({
   	type: Number,
     default: 90,
   },
+  bannerImg: String,
 });
 
 export const GenshinGachaBanner = model<IGenshinGachaBanner>('GenshinGachaBanner', GenshinGachaBannerSchema);

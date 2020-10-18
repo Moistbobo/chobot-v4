@@ -70,6 +70,7 @@ const action = async (args: CommandArgs) => {
 
   const processSetBannerPity = () => {
     const rolledItem = getRandomItemFromCollection(featuredOrStandardPool(5));
+    genshinUser.bannerPity.set(bannerName.toLowerCase(), 0);
 
     if (featuredSSRIds.includes(rolledItem.id)) {
       genshinUser.bannerSSRObtained.set(bannerName.toLowerCase(), 2);
