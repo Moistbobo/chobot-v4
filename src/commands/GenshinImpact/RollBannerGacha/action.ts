@@ -5,6 +5,7 @@ import { GenshinGachaItem } from '../../../types/db/GenshinGachaItem';
 import Embed from '../../../helpers/Embed';
 import { GenshinUser } from '../../../types/db/GenshinUser';
 import { GenshinGachaBanner } from '../../../types/db/GenshinGachaBanner';
+import MentionUser from '../../../helpers/MentionUser';
 
 const getRandomItemFromCollection = (collection: any[]) => {
   const randNum = Math.floor(Math.random() * collection.length);
@@ -14,7 +15,7 @@ const getRandomItemFromCollection = (collection: any[]) => {
 const action = async (args: CommandArgs) => {
   const {
     msg: {
-      content, channel, author: { id: authorId }, id: messageId,
+      content, channel, author, author: { id: authorId }, id: messageId,
     },
   } = args;
 
@@ -187,9 +188,13 @@ const action = async (args: CommandArgs) => {
   const attachment = new Discord.MessageAttachment(`./ggrolls/${authorId}.png`, `ggroll-${authorId}.png`);
 
   const embed = Embed.createEmbed({
-    contents: `${obtainedPity ? `Reached pity threshold (${SSRPityThreshold})` : ''}\nPity counter: ${genshinUser.bannerPity.get(bannerName.toLowerCase())}/${banner.SSRPityThreshold}`,
-    footer: genshinUser.bannerSSRObtained.get(bannerName.toLowerCase()) === 2 ? 'Banner Pity Awarded ✅' : '',
+    contents: `${MentionUser(authorId)}'s roll:\n`,
+    footer:
+        `${genshinUser.bannerSSRObtained.get(bannerName.toLowerCase()) === 2 ? 'Banner Pity Awarded ✅' : ''}` + `${obtainedPity ? `Reached pity threshold (${SSRPityThreshold})` : `Pity counter: ${genshinUser.bannerPity.get(bannerName.toLowerCase())}/${banner.SSRPityThreshold}`}`,
     image: `attachment://ggroll-${authorId}.png`,
+    thumbnail: author.avatarURL({
+      format: 'png',
+    }) || author.defaultAvatarURL,
     file: attachment,
   });
 
