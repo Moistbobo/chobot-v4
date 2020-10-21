@@ -18,6 +18,7 @@ const action = async (args: CommandArgs) => {
   return channel.send({
     embed: Embed.createEmbed({
       contents: `${genshinBanners.map((x, index) => `${index + 1}: ${x.name}\n`)}`.replace(/,/g, ''),
+      footer: 'type .ggbi [banner name] to view details | .gbg [banner name] to roll the specific banner',
     }),
   });
 };

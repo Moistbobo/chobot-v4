@@ -5,6 +5,7 @@ import { CommandArgs } from '../../../types/CommandArgs';
 import { GenshinGachaItem } from '../../../types/db/GenshinGachaItem';
 import Embed from '../../../helpers/Embed';
 import { GenshinUser } from '../../../types/db/GenshinUser';
+import MentionUser from '../../../helpers/MentionUser';
 
 const getRandomItemFromCollection = (collection: any[]) => {
   const randNum = Math.floor(Math.random() * collection.length);
@@ -12,7 +13,11 @@ const getRandomItemFromCollection = (collection: any[]) => {
 };
 
 const action = async (args: CommandArgs) => {
-  const { msg: { channel, author: { id: authorId }, id: messageId } } = args;
+  const {
+    msg: {
+      channel, author, author: { id: authorId }, id: messageId,
+    },
+  } = args;
 
   const genshinUser = await GenshinUser.findOne({ userId: authorId }) || new GenshinUser({
     userId: authorId,
@@ -121,9 +126,13 @@ const action = async (args: CommandArgs) => {
   const attachment = new Discord.MessageAttachment(`./ggrolls/${authorId}.png`, `ggroll-${authorId}.png`);
 
   const embed = Embed.createEmbed({
-    contents: obtainedPity ? 'Reached pity threshold (90)' : '',
+    contents: `Help:\n.ggs to check gacha stats\n.lbg to list available banners\n.gbg [banner name] to roll a specific banner.\n\n${MentionUser(authorId)}'s roll:\n`,
     image: `attachment://ggroll-${authorId}.png`,
     file: attachment,
+    thumbnail: author.avatarURL({
+      format: 'png',
+    }) || author.defaultAvatarURL,
+    footer: obtainedPity ? 'Reached pity threshold (90)' : `Pity counter: ${genshinUser.bannerPity.get('standard')}/90`,
   });
 
   await genshinUser.save();
