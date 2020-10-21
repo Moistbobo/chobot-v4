@@ -126,7 +126,7 @@ const action = async (args: CommandArgs) => {
   const attachment = new Discord.MessageAttachment(`./ggrolls/${authorId}.png`, `ggroll-${authorId}.png`);
 
   const embed = Embed.createEmbed({
-    contents: `Help:\n.ggs to check gacha stats\n.lbg to list available banners\n.gbg [banner name] to roll a specific banner.\n\n${MentionUser(authorId)}'s roll:\n`,
+    contents: `Help:\n.ggs to check gacha stats\n.lgb to list available banners\n.gbg [banner name] to roll a specific banner.\n\n${MentionUser(authorId)}'s roll:\n`,
     image: `attachment://ggroll-${authorId}.png`,
     file: attachment,
     thumbnail: author.avatarURL({
