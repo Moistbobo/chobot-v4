@@ -1,99 +1,57 @@
 import fetch from 'node-fetch';
 import cheerio from 'cheerio';
-import parser from 'fast-xml-parser';
+import _ from 'lodash';
 import { CommandArgs } from '../../../types/CommandArgs';
 import Embed from '../../../helpers/Embed';
 
-const rssFeedUrl = 'https://community.blackdesertonline.com/index.php?forums/patch-notes.5/index.rss';
-const updatesUrl = 'https://www.blackdesertonline.com/news/list/update';
-const linkElement = 'list_news';
+const updatesUrl = 'https://www.naeu.playblackdesert.com/en-US/News/Notice?boardType=2';
 
-const getPatchNotesNew = (args: any) => {
-  fetch(updatesUrl)
-    .then((result) => result.text())
-    .then((xml) => {
-      const $ = cheerio.load(xml);
-      const listNews = $('a[class=link_news]').toArray();
-      const newsStrings = $('strong[class=subject_news]').toArray();
+const getName = (element: CheerioElement) => _.get(element, 'children[3].children[1].children[7].children[0].data');
 
-      // for (let i = 0; i < listNews.length; i++) {
-      //   const newsString = newsStrings[i].children[0].data;
-      //   const link = listNews[i].attribs.href;
-      //   const newsLink = `https://www.blackdesertonline.com${link}`;
-      //
-      //   console.log(newsString, newsLink);
-      // }
+const getLink = (element: CheerioElement) => _.get(element, 'attribs.href');
 
-      let pnString = '';
-      let link = '';
+const mapLinks = (links: CheerioElement[]) => links.map(
+  (x) => ({ name: getName(x), link: getLink(x) }),
+)
+  .filter((x) => x.name);
 
-      for (let i = 0; i < listNews.length && pnString === ''; i++) {
-        if (newsStrings[i]?.children[0]?.data?.includes('Patch')) {
-          pnString = newsStrings[i]?.children[0]?.data || '';
-          link = listNews[i].attribs.href;
-        }
-      }
 
-      const newsLink = `https://www.blackdesertonline.com${link}`;
+const getPatchNotesNew = async (args: any, history: number) => {
+  try {
+    const fetchResult = await fetch(updatesUrl);
+    const resultsText = await fetchResult.text();
+    const cheerioResult = cheerio.load(resultsText);
 
-      return args.msg.channel.send(
-        Embed.createEmbed({
-          contents: `${pnString}\n${newsLink}`,
-        }),
-      );
-    })
-    .catch((err) => {
-      Embed.createEmbed({
-        contents: 'A network error occurred while retrieving patchnotes',
-      }, true);
-    });
+    const btnDetail = cheerioResult('a[name=btnDetail]').toArray();
+
+    const newsLinks = mapLinks(btnDetail);
+
+    newsLinks.length = history
+      ? Math.min(history || newsLinks.length)
+      : 1;
+
+    const mappedLinks = newsLinks.map((x) => `${x.name}\n${x.link}`);
+
+    return mappedLinks.join('\n\n');
+  } catch {
+    return 'Unable to retrieve patch notes';
+  }
 };
 
-const getPatchNotesLegacy = (args: any, history: number) => {
-  fetch(rssFeedUrl)
-    .then((result) => result.text())
-    .then((xml) => {
-      const tobj = parser.getTraversalObj(xml);
-      console.log(tobj);
-      const json = parser.convertToJson(tobj);
-
-      const pn = json.rss.channel.item;
-
-      let pnString = '';
-
-      for (let i = 0; i < history; i++) {
-        pnString += `${pn[i].title}\n${pn[i].link} \n\n`;
-      }
-
-      const embedArgs = {
-        title: 'Patch Notes',
-        contents: pnString,
-      };
-      return args.msg.channel.send(
-        Embed.createEmbed(embedArgs),
-      );
-    })
-    .catch((err) => {
-      console.log(err);
-      args.msg.channel.send(
-        Embed.createEmbed({
-          contents: 'A network error occurred while retrieving patchnotes',
-        }, true),
-      );
-    });
-};
-
-const action = (args: CommandArgs) => {
+const action = async (args: CommandArgs) => {
   const { msg: { content } } = args;
 
   const [, numPN] = content.split(' ');
   const history = Math.min((parseFloat(numPN) || 1), 15);
 
-  if (history === 1) {
-    getPatchNotesNew(args);
-  } else if (history > 1) {
-    getPatchNotesLegacy(args, history);
-  }
+
+  const patchNotes = await getPatchNotesNew(args, history);
+
+  return args.msg.channel.send(
+    Embed.createEmbed({
+      contents: patchNotes,
+    }),
+  );
 };
 
 export default action;
