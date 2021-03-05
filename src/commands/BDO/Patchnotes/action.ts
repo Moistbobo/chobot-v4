@@ -24,7 +24,7 @@ const getPatchNotesNew = async (args: any, history: number) => {
     const cheerioResult = cheerio.load(resultsText);
 
     const btnDetail = cheerioResult('a[name=btnDetail]')
-      .toArray().filter((x) => x.attribs.href !== 'javascript:void(0);');
+      .toArray().filter((x:any) => x.attribs.href !== 'javascript:void(0);');
 
     const newsLinks = mapLinks(btnDetail);
 
