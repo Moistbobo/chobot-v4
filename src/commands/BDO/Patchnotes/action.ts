@@ -35,7 +35,8 @@ const getPatchNotesNew = async (args: any, history: number) => {
     const mappedLinks = newsLinks.map((x) => `${x.name}\n${x.link}`);
 
     return mappedLinks.join('\n\n');
-  } catch {
+  } catch (err) {
+    console.log(err);
     return 'Unable to retrieve patch notes';
   }
 };

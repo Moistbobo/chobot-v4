@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsc -b && cp ./package.json ./dist/ && cp ./.env ./dist/ && nodemon dist/index.js",
-    "build-and-run": "tsc --build && node dist/index.js",
+    "dev": "tsc -b && cp ./package.json ./dist/ && cp ./.env ./dist/ && nodemon --insecure-http-parser dist/index.js",
+    "build-and-run": "tsc --build && node --insecure-http-parser dist/index.js",
     "deploy": "tsc --build && sh deploy.sh"
   },
   "author": "",
@@ -33,11 +33,12 @@
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.18",
-    "@types/moment": "^2.13.0",
     "@types/lodash": "^4.14.162",
+    "@types/moment": "^2.13.0",
     "@types/mongoose": "^5.7.20",
     "@types/node": "^12.12.14",
     "@types/node-fetch": "^2.5.7",
+    "@types/superagent": "^4.1.10",
     "@types/uuid": "^8.0.0",
     "@types/validator": "^13.0.0",
     "@types/ws": "^7.2.4",
