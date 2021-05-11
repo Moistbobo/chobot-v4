@@ -21,7 +21,7 @@
     "erlpack": "^0.1.3",
     "fast-xml-parser": "3.12.16",
     "jimp": "^0.12.0",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "moment": "^2.25.3",
     "mongodb": "^3.5.7",
     "mongoose": "^5.9.14",
