@@ -7,7 +7,7 @@ import Embed from '../../../helpers/Embed';
 const updatesUrl = 'https://www.naeu.playblackdesert.com/en-US/News/Notice?boardType=2';
 
 const getName = (element: any) => _.get(element, 'children[3].children[1].children')
-  .filter((x: any) => x.attribs && x.attribs.class === 'desc')[0].children[0].data;
+  .filter((x: any) => x.attribs && x.attribs.class === 'desc')[0].children[0]?.data;
 
 const getLink = (element: any) => _.get(element, 'attribs.href');
 
