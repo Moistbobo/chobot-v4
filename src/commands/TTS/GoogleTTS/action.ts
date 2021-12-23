@@ -55,7 +55,7 @@ const action = async (args: CommandArgs) => {
       lastActivity: moment().toISOString(),
     };
     voiceConnections[serverId].session.play(`./gtts/${serverId}.wav`);
-  } catch (err) {
+  } catch (err: any) {
     console.log('Error occurred', err.message);
   }
 };

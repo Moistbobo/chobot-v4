@@ -6,15 +6,14 @@ import Embed from '../../../helpers/Embed';
 
 const updatesUrl = 'https://www.naeu.playblackdesert.com/en-US/News/Notice?boardType=2';
 
-const getName = (element: CheerioElement) => _.get(element, 'children[3].children[1].children[7].children[0].data');
+const getName = (element: any) => _.get(element, 'children[3].children[1].children[7].children[0].data');
 
-const getLink = (element: CheerioElement) => _.get(element, 'attribs.href');
+const getLink = (element: any) => _.get(element, 'attribs.href');
 
-const mapLinks = (links: CheerioElement[]) => links.map(
+const mapLinks = (links: any[]) => links.map(
   (x) => ({ name: getName(x), link: getLink(x) }),
 )
   .filter((x) => x.name);
-
 
 const getPatchNotesNew = async (args: any, history: number) => {
   try {
@@ -33,7 +32,8 @@ const getPatchNotesNew = async (args: any, history: number) => {
     const mappedLinks = newsLinks.map((x) => `${x.name}\n${x.link}`);
 
     return mappedLinks.join('\n\n');
-  } catch {
+  } catch (err:any) {
+    console.log(err);
     return 'Unable to retrieve patch notes';
   }
 };
@@ -43,7 +43,6 @@ const action = async (args: CommandArgs) => {
 
   const [, numPN] = content.split(' ');
   const history = Math.min((parseFloat(numPN) || 1), 15);
-
 
   const patchNotes = await getPatchNotesNew(args, history);
 
